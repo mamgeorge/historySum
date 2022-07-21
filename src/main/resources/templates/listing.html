@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th = "https://www.thymeleaf.org">
+<head><title>listing</title>
+	<meta charset = "UTF-8">
+	<link rel = "stylesheet" th:href = "@{/basics.css}">
+	<script type = "text/javascript" th:src = "@{/basics.js}"></script>
+	<style>
+table.main { width: 640px; border: 1px solid black; text-align: left;  }
+td, th { text-align: left; vertical-align: top; margin: 0px; padding: 4px; }
+div { display: inline-block; height: 500px; overflow: auto; }
+span { text-align: left; }
+img { width: 30px; height: 30px; border: 1px solid black; border-radius: 5px; margin: 0px; padding: 0px; }
+
+
+	</style>
+</head>
+
+<body>
+<center><h3>history listing</h3><br/>
+	<br/>Total Listings: <span th:text = "${#lists.size(histories)}"></span>
+
+	<!-- https://frontbackend.com/tag/Utility
+		id, datebegpre, datebeg, dateendpre, dateend,
+		eramain, locations, personname, eventmain, references, grouping, mediaicopath
+		<img th:src="@{${'/images/' + history.mediaicopath + '.jpg'}}"/>
+		-->
+	<br/><br/>
+	<div>
+		<center>
+			<table class = "main">
+				<tr>
+					<th>id</th>
+					<th>img</th>
+					<th>date</th>
+					<th>era/locations</th>
+					<th>person/event</th>
+					<th>eventmain</th>
+					<th>reference/group</th>
+				</tr>
+
+				<tr th:each = "history: ${histories}" th:onclick = "|location.href='/inputs/${history.id}'|" >
+
+					<td>
+						<span id = "id" th:text = "${#numbers.formatInteger(history.id,7)}"/>
+						</td>
+					<td>
+						<img id = "mediaicopath" th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
+							th:title = "${history.id}"/><!--th:onclick = "javascript: showImage(this);"-->
+						</td>
+					<td style = "white-space: nowrap;">
+						<span id = "datebeg" th:text = "${history.datebegpre}"/><span
+						th:text = "${#strings.substring(history.datebeg, 0, 4)}"/>
+						<span id = "dateend" th:text = "${history.dateendpre}"/><span
+						th:text = "${#strings.substring(history.dateend, 0, 4)}"/>
+						</td>
+
+					<td><span id = "eramain" th:text = "${history.eramain}"/> /<br/>
+						<span id = "locations" th:text = "${history.locations}"/>
+						</td>
+
+					<td><span id = "personname" th:text = "${history.personname}"/>
+						</td>
+
+					<td><span id = "eventmain" th:text = "${history.eventmain}"/>
+						</td>
+
+					<td><span id = "references" th:text = "${history.referenced}"/> /<br/>
+						<span id = "grouping" th:text = "${history.groupings}"/>
+						</td>
+				</tr>
+			</table>
+		</center>
+	</div>
+
+	<br/>
+	<hr/>
+	<a href = "/">return</a>
+	<br/><h6 th:text = "${#strings.randomAlphanumeric(10)}"></h6>
+
+</center>
+</body>
+</html>

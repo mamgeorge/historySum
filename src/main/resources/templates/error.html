@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.thymeleaf.org">
+<head><title>error</title>
+	<meta charset = "UTF-8">
+	<link rel = "stylesheet" href = "basics.css">
+	<style>
+img { border: 10px #a0a080 outset; width: 450px; height: 300px; border-radius: 15px; }
+
+
+	</style>
+</head>
+
+<body>
+<center><h3>error</h3>
+	<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}"/></b>
+
+	<br/><br/>field errors<br/>
+	<li th:each = "err : ${#fields.allErrors()}" th:text = "${err}"/>
+
+	<br/><br/>error object<br/>
+	<table style = "width: 50%;">
+		<tr>
+			<th>timestamp</th>
+			<td><span th:text = "${timestamp}"/></td>
+		</tr>
+		<tr>
+			<th>path</th>
+			<td><span th:text = "${path}"/></td>
+		</tr>
+		<tr>
+			<th>error</th>
+			<td><span th:text = "${error}"/></td>
+		</tr>
+		<tr>
+			<th>status</th>
+			<td><span th:text = "${status}"/></td>
+		</tr>
+		<tr>
+			<th>message</th>
+			<td><span th:text = "${message}"/></td>
+		</tr>
+		<tr>
+			<th>exception</th>
+			<td><span th:text = "${exception}"/></td>
+		</tr>
+		<tr>
+			<th>trace</th>
+			<td><span th:text = "${trace}"/></td>
+		</tr>
+	</table>
+
+	<br/><br/>
+	<hr/>
+	<a href = "/">return</a>
+
+</center>
+</body>
+</html>
