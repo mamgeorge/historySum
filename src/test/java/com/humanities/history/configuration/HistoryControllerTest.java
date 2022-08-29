@@ -1,5 +1,8 @@
 package com.humanities.history.configuration;
 
+import com.humanities.history.controller.HistoryController;
+import com.humanities.history.services.History;
+import com.humanities.history.services.IHistoryService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -10,7 +13,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
@@ -29,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
@@ -179,7 +182,7 @@ public class HistoryControllerTest {
 		String txtLines = MAV.getViewName();
 		//
 		System.out.println("posted(clear): " + txtLines);
-		assert ( txtLines.equals("inputs") );
+		assertEquals( txtLines, "inputs" );
 	}
 
 	@Test void posted_call( ) { /* ? fails due to HttpClientErrorException "Bad Request" */
@@ -259,7 +262,7 @@ public class HistoryControllerTest {
 		}
 		//
 		System.out.println("ERROR: " + txtLines);
-		assert ( txtLines.equals("RuntimeException!") );
+		assertEquals ( txtLines, "RuntimeException!" );
 	}
 
 	//############

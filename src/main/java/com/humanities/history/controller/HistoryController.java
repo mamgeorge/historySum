@@ -1,5 +1,7 @@
-package com.humanities.history.configuration;
+package com.humanities.history.controller;
 
+import com.humanities.history.services.History;
+import com.humanities.history.services.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

@@ -1,13 +1,18 @@
 app.name: HistoryApplication
 core.source: ${CORE_SOURCE}
 
+# servers
+server.servlet.context-path: /
+server.servlet.port: 8080
+server.error.whitelabel.enabled: false
+
 # thymeleaf; probably not needed
 spring.thymeleaf.encoding: UTF-8
 spring.thymeleaf.content-type: text/html;charset=UTF-8
 spring.thymeleaf.mode: HTML
 
-#spring.datasource.driver-class-name: com.mysql.jdbc.Driver
-#spring.datasource.url: jdbc:mysql://localhost:3306/mydb
+# spring.datasource.driver-class-name: com.mysql.jdbc.Driver
+# spring.datasource.url: jdbc:mysql://localhost:3306/mydb
 spring.jpa.hibernate.ddl-auto: update
 spring.datasource.url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/mydb
 spring.datasource.username: ${MYSQL_USER}
@@ -16,14 +21,9 @@ spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
 
 # actuators
 management.security.enabled: false
-management.endpoints.web.exposure.include: info, health, env, beans, metrics, configprops, conditions, logfile, sessions, auditevents, shutdown
+management.endpoints.web.exposure.include: "*"
 management.endpoints.web.base-path: /actuator
 spring.jackson.serialization.indent_output: true
-
-# servers
-server.servlet.context-path: /
-server.servlet.port: 8080
-server.error.whitelabel.enabled: false
 
 # logging
 spring.main.banner-mode: CONSOLE
