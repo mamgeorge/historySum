@@ -9,7 +9,7 @@ import javax.servlet.ServletContext;
 
 /*
 	This attempt to enforce a StandardCharsets in the ThymeleafViewResolver did not work.
-	I believe it  is more efficiently handled in apps.yml: spring.thymeleaf.encoding: UTF-8
+	I believe it is more efficiently handled in apps.yml: spring.thymeleaf.encoding: UTF-8
 	https://stackoverflow.com/questions/39262370/spring-boot-how-to-correctly-define-template-locations
  */
 
