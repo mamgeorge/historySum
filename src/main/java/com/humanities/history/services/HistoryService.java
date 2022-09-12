@@ -26,7 +26,7 @@ import java.util.Optional;
 
 	@Override public void delete(History history) {
 		//
-		System.out.println("deletion request for: " + history.showHistory());
+		System.out.println("#### DELETION REQUEST: [" + history.showHistory() + "] ####");
 		// historyRepository.delete(history);
 	}
 }

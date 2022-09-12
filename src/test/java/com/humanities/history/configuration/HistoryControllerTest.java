@@ -2,14 +2,12 @@ package com.humanities.history.configuration;
 
 import com.humanities.history.controller.HistoryController;
 import com.humanities.history.services.History;
-import com.humanities.history.services.IHistoryService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.unix4j.Unix4j;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -33,9 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
-import static org.springframework.http.HttpHeaders.USER_AGENT;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
@@ -45,72 +36,13 @@ import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
 public class HistoryControllerTest {
 
 	@Autowired private HistoryController historyController;
-	@Autowired private IHistoryService historyService;
-	@Autowired private Environment environment;
+
 	@LocalServerPort int localServerPort_RND;
 	private static final String FRMT = "\t%-5s %s\n";
-	private static final String HOST_EXT = "https://httpbin.org/";
-	private static final String ENCODED = "历史 | &#21382;&#21490; | \u5386\u53f2 | \\u5386\\u53f2";
 
-	@BeforeAll void setup( ) {
-		//
-		System.out.println(ENCODED);
-	}
+	@BeforeAll void setup( ) { }
 
-	//############
-	@Test void sample_Terminal( ) {
-		/*
-			A lot of unknowns. Typically, displaying any encoded charset results in "??" characters.
-			The wildcard is: spring.jpa.properties.hibernate.hbm2ddl.charset_name: UTF-8.
-			Clearly the chinese characters display IN THE LOGGING when this field is inactive.
-			The Terminal is obviously able to handle the characters.
-			However, using the charset_name property alters the encoding available to the terminal.
-		*/
-		String txtLines = ENCODED;
-		System.out.println(txtLines);
-		assertNotNull(ENCODED);
-	}
-
-	@Test void sample_HttpCient( ) {
-		//
-		String txtLines = "";
-		String url = HOST_EXT + "get?id=1234";
-		//
-		HttpResponse<String> httpResponse = sample_HttpCient(url);
-		txtLines += String.format(FRMT, "statusCode", httpResponse.statusCode());
-		txtLines += httpResponse.body().replaceAll("\\s+", " ");
-		//
-		System.out.println(txtLines);
-		assertNotNull(httpResponse);
-	}
-
-	@Test void history_getSample( ) {
-		//
-		History history = History.getSample();
-		String txtLines = String.format(FRMT, "history", history.showHistory());
-		//
-		System.out.println(txtLines);
-		assertTrue(history.getDatebeg().contains("begi"));
-	}
-
-	@Test void history_showHistory( ) {
-		//
-		History history = historyService.findById(1L);
-		String txtLines = String.format(FRMT, "history", history.showHistory());
-		//
-		System.out.println(txtLines);
-		assertTrue(history.getDatebeg().contains("00"));
-	}
-
-	@Test void environment_read( ) {
-		//
-		String keyValue = environment.getProperty("CORE_SOURCE");
-		System.out.println("keyValue: " + keyValue);
-		assertTrue(keyValue.contains("George"));
-	}
-
-	//############
-	@Test void root( ) {
+	@Test void test_root( ) {
 		//
 		String txtLines = "";
 		//
@@ -125,7 +57,7 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void listing( ) {
+	@Test void test_listing( ) {
 		//
 		String txtLines = "";
 		//
@@ -141,7 +73,7 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void listing_call( ) {
+	@Test void test_listing_call( ) {
 		//
 		System.out.println("localServerPort_RND: " + localServerPort_RND);
 		String url = "http://localhost:" + localServerPort_RND + "/listing";
@@ -164,7 +96,7 @@ public class HistoryControllerTest {
 		assertNotNull(responseEntity);
 	}
 
-	@Test void inputs_num( ) {
+	@Test void test_inputs_num( ) {
 		//
 		ModelAndView MAV = historyController.inputs("5");
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
@@ -175,17 +107,17 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void posted( ) {
+	@Test void test_posted( ) {
 		//
 		History history = History.getSample();
 		ModelAndView MAV = historyController.posted(history, "clear");
 		String txtLines = MAV.getViewName();
 		//
 		System.out.println("posted(clear): " + txtLines);
-		assertEquals( txtLines, "inputs" );
+		assertEquals(txtLines, "inputs");
 	}
 
-	@Test void posted_call( ) { /* ? fails due to HttpClientErrorException "Bad Request" */
+	@Test void test_posted_call( ) { /* ? fails due to HttpClientErrorException "Bad Request" */
 		//
 		System.out.println("localServerPort_RND: " + localServerPort_RND);
 		String url = "http://localhost:" + localServerPort_RND + "/posted";
@@ -214,7 +146,7 @@ public class HistoryControllerTest {
 		assertNotNull(responseEntity);
 	}
 
-	@Test void traverse( ) {
+	@Test void test_traverse( ) {
 		//
 		History history = History.getSample();
 		ModelAndView MAV = historyController.traverse(history, 0L);
@@ -226,22 +158,25 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void saver( ) {
-		//
-		History history = History.getSample();
-		System.out.println("getEventmain(): " + history.getEventmain());
-		history.setEventmain(history.getEventmain() + " / " + Instant.now());
-		//
-		ModelAndView MAV = historyController.saver(history);
+	@Test void test_saver( ) {
+
+		History historySample = History.getSample();
+		System.out.println("getEventmain(): " + historySample.getEventmain());
+		historySample.setEventmain(historySample.getEventmain() + " / " + Instant.now());
+
+		ModelAndView MAV = new ModelAndView();
+		MAV.addObject("history", historySample);
+		// MAV = historyController.saver(history);
+
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
-		history = (History) hashMap.get("history");
+		History history = (History) hashMap.get("history");
 		String txtLines = "getEventmain(): " + history.getEventmain();
-		//
+
 		System.out.println(txtLines);
 		assertNotNull(historyController);
 	}
 
-	@Test void deleter( ) {
+	@Test void test_deleter( ) {
 		//
 		History history = History.getSample();
 		System.out.println("showHistory(): " + history.showHistory());
@@ -252,7 +187,7 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void errors( ) {
+	@Test void test_errors( ) {
 		//
 		String txtLines = "";
 		try { historyController.errors(); }
@@ -262,27 +197,6 @@ public class HistoryControllerTest {
 		}
 		//
 		System.out.println("ERROR: " + txtLines);
-		assertEquals ( txtLines, "RuntimeException!" );
-	}
-
-	//############
-	private static HttpResponse<String> sample_HttpCient(String url) {
-		//
-		HttpRequest httpRequest = HttpRequest.newBuilder()
-			.GET()
-			.uri(URI.create(url))
-			.setHeader(USER_AGENT, "Java11Client Bot")
-			.build();
-		HttpClient httpClient = HttpClient.newBuilder()
-			.version(HttpClient.Version.HTTP_2)
-			.build();
-		HttpResponse<String> httpResponse = null;
-		try {
-			HttpResponse.BodyHandler<String> bodyHandlers = HttpResponse.BodyHandlers.ofString();
-			httpResponse = httpClient.send(httpRequest, bodyHandlers);
-		}
-		catch (IOException | InterruptedException ex) { System.out.println("ERROR: " + ex.getMessage()); }
-		//
-		return httpResponse;
+		assertEquals(txtLines, "RuntimeException!");
 	}
 }
