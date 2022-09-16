@@ -26,11 +26,11 @@ public class HistoryController {
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
 
-	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView root( ) {
+	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
-		System.out.println("index");
-		LOGGER.info("index");
-		ModelAndView MAV = new ModelAndView("index", new HashMap<>());
+		System.out.println("home");
+		LOGGER.info("home");
+		ModelAndView MAV = new ModelAndView("home", new HashMap<>());
 		return MAV;
 	}
 

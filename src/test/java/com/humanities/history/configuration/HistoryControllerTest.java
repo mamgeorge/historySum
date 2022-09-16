@@ -42,11 +42,11 @@ public class HistoryControllerTest {
 
 	@BeforeAll void setup( ) { }
 
-	@Test void test_root( ) {
+	@Test void test_home( ) {
 		//
 		String txtLines = "";
 		//
-		ModelAndView MAV = historyController.root();
+		ModelAndView MAV = historyController.home();
 		View view = MAV.getView();
 		txtLines += String.format(FRMT, "historyController", historyController);
 		txtLines += String.format(FRMT, "modelAndView", MAV);

@@ -14,7 +14,7 @@ import javax.servlet.ServletContext;
  */
 
 @Configuration
-public class HistoryConfiguration {
+public class GeneralConfiguration {
 
 	@Autowired private Environment environment;
 	@Autowired private ServletContext servletContext;
