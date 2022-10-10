@@ -57,11 +57,11 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void test_listing( ) {
+	@Test void test_showListing( ) {
 		//
 		String txtLines = "";
 		//
-		ModelAndView MAV = historyController.listing();
+		ModelAndView MAV = historyController.showListing();
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
 		List<History> histories = (List<History>) hashMap.get("histories");
 		AtomicInteger ai = new AtomicInteger();
@@ -73,7 +73,7 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void test_listing_call( ) {
+	@Test void test_showListing_call( ) {
 		//
 		System.out.println("localServerPort_RND: " + localServerPort_RND);
 		String url = "http://localhost:" + localServerPort_RND + "/listing";
@@ -96,9 +96,9 @@ public class HistoryControllerTest {
 		assertNotNull(responseEntity);
 	}
 
-	@Test void test_inputs_num( ) {
+	@Test void test_showInputs_num( ) {
 		//
-		ModelAndView MAV = historyController.inputs("5");
+		ModelAndView MAV = historyController.showInputs("5");
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
 		History history = (History) hashMap.get("history");
 		String txtLines = String.format(FRMT, "getPersonname:", history.getPersonname());

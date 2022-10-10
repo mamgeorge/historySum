@@ -34,7 +34,7 @@ public class HistoryController {
 		return MAV;
 	}
 
-	@GetMapping( "/listing" ) public ModelAndView listing( ) {
+	@GetMapping( "/listing" ) public ModelAndView showListing( ) {
 		//
 		List<History> histories = historyService.findAll();
 		System.out.println("histories: " + histories.size());
@@ -48,7 +48,7 @@ public class HistoryController {
 		return MAV;
 	}
 
-	@GetMapping( "/inputs" ) public ModelAndView inputs( ) {
+	@GetMapping( "/inputs" ) public ModelAndView showInputs( ) {
 		//
 		History history = History.getSample();
 		ModelAndView MAV = new ModelAndView();
@@ -61,7 +61,7 @@ public class HistoryController {
 		return MAV;
 	}
 
-	@GetMapping( "/inputs/{id}" ) public ModelAndView inputs(@PathVariable String id) {
+	@GetMapping( "/inputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
 		//
 		System.out.println("inputs: [" + id + "]");
 		long longId;
@@ -107,8 +107,8 @@ public class HistoryController {
 			++longId;
 			MAV = traverse(history, longId);
 		}
-		if ( nav != null && nav.equals("list") ) { MAV = listing(); }
-		if ( nav != null && nav.equals("clear") ) { MAV = inputs(); }
+		if ( nav != null && nav.equals("list") ) { MAV = showListing(); }
+		if ( nav != null && nav.equals("clear") ) { MAV = showInputs(); }
 		if ( nav != null && nav.equals("save") ) { MAV = saver(history); }
 		if ( nav != null && nav.equals("delete") ) { MAV = deleter(history); }
 		//
@@ -154,8 +154,14 @@ public class HistoryController {
 		System.out.println("deleting: " + history.showHistory());
 		try { historyService.delete(history); }
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
-		ModelAndView MAV = inputs();
+		ModelAndView MAV = showInputs();
 		return MAV;
+	}
+
+	//####
+	@GetMapping( "/appendix" ) public ModelAndView appendix( ) {
+
+		return new ModelAndView("appendix", new HashMap<>());
 	}
 
 	@GetMapping( "/errors" ) public void errors( ) {

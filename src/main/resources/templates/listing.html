@@ -7,16 +7,16 @@
 	<style>
 table.main { width: 640px; border: 1px solid black; text-align: left;  }
 td, th { text-align: left; vertical-align: top; margin: 0px; padding: 4px; }
-div { display: inline-block; height: 500px; overflow: auto; }
+div { display: inline-block; height: 400px; overflow: auto; }
 span { text-align: left; }
 img { width: 30px; height: 30px; border: 1px solid black; border-radius: 5px; margin: 0px; padding: 0px; }
 
 	</style>
 </head>
 
-<body>
-<center><h3>history listing</h3><br/>
-	<br/>Total Listings: <span th:text = "${#lists.size(histories)}"></span>
+<body><center><br /><h3>history listing</h3><br/>
+
+	<br/><span th:insert = "toolbar.html" ></span>
 
 	<!-- https://frontbackend.com/tag/Utility
 		id, datebegpre, datebeg, dateendpre, dateend,
@@ -72,10 +72,9 @@ img { width: 30px; height: 30px; border: 1px solid black; border-radius: 5px; ma
 	</div>
 
 	<br/>
-	<hr/>
-	<a href = "/">return</a>
-	<br/><h6 th:text = "${#strings.randomAlphanumeric(10)}"></h6>
-
+	<br/><h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span> |
+	Total Listings: <span th:text = "${#lists.size(histories)}"></span></h6>
+	<br /><a href = "/">return</a>
 </center>
 </body>
 </html>

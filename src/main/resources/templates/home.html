@@ -2,76 +2,47 @@
 <html xmlns:th = "https://www.thymeleaf.org">
 <head><title>index</title>
 	<meta charset = "UTF-8">
-	<link rel = "stylesheet" href = "/basics.css">
+	<link rel = "stylesheet" href = "/basics0.css">
 	<style>
-	img { border: 10px #a0a080 outset; width: 400px; height: 267px; border-radius: 15px; }
+	body { background: url('/images/bck_parchment.jpg'); margin: auto; text-align: center; font-size: 9pt; }
+	body, h1, table, tr, th, td, img, button, .hdr {
+		margin: auto; background-color: transparent; font-family: verdana; }
+
+	table { width: 400px; margin: auto; }
+	table, tr, th, td { border: 0px; margin: auto; }
+
+	h1 { color: #403030; text-decoration: none; }
+
+	img { width: 400px; height: 200px; border: 10px #a0a080 outset; border-radius: 15px; }
+
+	button { width: 200px; height: 70px;
+		background-color: #403030; color: #ffffff; font-weight: bold;
+		border: 5px #a08060 outset; border-radius: 5px; }
 	</style>
 </head>
 
-<body>
-<center><h3>home</h3>
-	<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}"/></b>
+<body><br/>
+<h1>History</h1>
+<b style = "font-size: 7pt;" ><span th:text = "${#dates.formatISO(#dates.createNow())}"/>
 	<br/><br/>
-	<h2><span>	History! | 历史 </span></h2>
-	<br/>
-	<br/><img src = "/images/history.png"/>
+	היסטוריה
+	| umlando
+	تاريخ |
+	| इतिहास
+	| 历史
+	| History
+	| k'ajláayo'
+</b><br/>
 
-	<br/><br/>
-	<a href = "/">/(root)</a> |
-	<a href = "/index">/index</a> |
-	<a th:href = "@{/home}">/home</a>
+<img src = "/images/history.png"/>
 
-	<br/>
-	<a href = "/listing">/listing</a> |
-	<a href = "/inputs">/inputs</a> /
-	<a href = "/inputs/0">/inputs/0</a>
+<br/><br/>
+	<table><tr>
+		<td><button onclick ="location.href ='/listing';">Show List</button></td>
+		<td><button onclick ="location.href ='/inputs';" >Add Record</button></td>
+	</table>
 
-	<br/>
-	<fieldset style = "width: 50%;" ><legend>actuators</legend><span style = "font-size: 8pt;" >
-		<a href = "https://docs.spring.io/spring-boot/docs/2.5.6/reference/html/actuator.html" >spring.io actuator list</a> |
-		<a href = "https://www.javatpoint.com/spring-boot-actuator" >javatpoint actuator examples</a>
-		<hr />
-		<a href = "/actuator"			>/actuator	</a> |
-		<a href = "/actuator/health"	>/health	</a> |
-		<hr />
-		[ requires basic management.endpoints set to true ]	<br />
-		<a href = "/actuator/beans"			>/beans			</a> |
-		<a href = "/actuator/caches"		>/caches		</a> |
-		<a href = "/actuator/conditions"	>/conditions	</a> |
-		<a href = "/actuator/configprops"	>/configprops	</a> |
-		<a href = "/actuator/env"			>/env			</a> |
-		<a href = "/actuator/heapdump"		><b style = "color: red;" >/heapdump</b></a> |
-		<a href = "/actuator/info"			>/info			</a> |
-		<a href = "/actuator/loggers"		>/loggers		</a> |
-		<a href = "/actuator/mappings"		>/mappings		</a> |
-		<a href = "/actuator/metrics"		>/metrics		</a> |
-		<a href = "/actuator/scheduledtasks"	>/scheduledtasks	</a> |
-		<a href = "/actuator/threaddump"	>/threaddump	</a>
-		<hr />
-		[ requires extra configuration ]	<br />
-		<a href = "/actuator/auditevents"	>/auditevents	</a> |
-		<a href = "/actuator/flyway"		>/flyway		</a> |
-		<a href = "/actuator/httptrace"		>/httptrace		</a> |
-		<a href = "/actuator/integrationgraph"	>/integrationgraph	</a> |
-		<a href = "/actuator/liquibase"		>/liquibase		</a> |
-		<a href = "/actuator/logfile"		>/logfile		</a> |
-		<a href = "/actuator/prometheus"	>/prometheus	</a> |
-		<a href = "/actuator/quartz"		>/quartz		</a> |
-		<a href = "/actuator/sessions"		>/sessions		</a> |
-		<a href = "/actuator/shutdown"		>/shutdown		</a>
-
-	</span></fieldset>
-
-	<br />
-
-	<a href = "/errors">/errors</a> |
-	<a href = "/h2console">/h2console</a> |
-	<a href = "/swagger-ui">/swagger-ui</a> |
-	<a href = "/swagger-ui.html">/swagger-ui.html</a>
-
-	<br/><br/>
-	<hr/>
-	<a href = "/">return</a>
+	<br/><a href = "/appendix">appendix</a>
 
 </center>
 </body>
