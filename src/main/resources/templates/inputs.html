@@ -1,234 +1,127 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th = "https://www.thymeleaf.org">
-<head>
-	<title>inputs</title>
-	<meta charset = "UTF-8">
-	<link rel = "stylesheet" th:href = "@{/basics.css}">
-	<script type = "text/javascript" th:src = "@{/basics.js}"></script>
-	<style>
-table.main { width: 50%; border: 1px solid black; border-radius: 10px; border-spacing: 0px; }
-th { padding: 0px; border: 0px; border: 1px solid black; }
-td { text-align: center; border: 0px; }
-
-fieldset { background: white; width: 48%; border-radius: 7px; height: 50px; overflow: auto; }
-legend { background: white; border-top: 1px solid black; border-radius: 7px;}
-button, input, textarea { font-size: 14pt; font-family: Arial; border-radius: 5px; }
-button { border: 5px outset #d0d0c0; }
-input.sml { border: 0px; background: transparent; width: 10px; }
-img { border: 1px solid black; width: 40px; height: 40px; border-radius: 5px; }
-img.top { width: 60px; height: 60px; padding: 0px; }
-
-.grp { white-space: nowrap; }
-.shrt { width: 1%; }
-.long { width: 80%; }
-	</style>
+<head><title>inputs</title><meta charset = "UTF-8">
+<link rel = "stylesheet" th:href = "@{/basics.css}">
+<script type = "text/javascript" th:src = "@{/basics.js}"></script>
+<style>
+body, table, form, fieldset { margin: auto; text-align: center; font-family: verdana; }
+table, td, th { padding: 0px; font-size: 14pt;
+	border-radius: 4px; border-spacing: 5px; }
+td, th { padding: 2px; background: transparent; border: 1px solid black; vertical-align: top; }
+h1, h2, h3, h4, h5, h6, form { text-align: center; display: inline; }
+img { width: 300px; height: 300px; border: 0px; border-radius: 4px; }
+input, select { text-align: left; padding: 0px; border: 0px;  font-size: 14pt; }
+textarea { border: 0px; background: transparent; border-radius: 4px; font-size: 14pt; width: 400px; }
+select { font-size: 9pt; width: 400px; }
+</style>
 </head>
 
-<body>
-<center><h3>history inputs</h3><br/>
+<body><br /><h3>History Inputs</h3><br/>
 
-	<br/>
-	<form th:action = "@{/posted}" th:object = "${history}" method = "post">
-		<table class = "main">
-			<tr>
-				<td style = "padding: 0px;">
-					<img class = "top" th:src = "@{/images/history.png}"/></td>
-				<td><h3><span th:text = "${#dates.formatISO(#dates.createNow())}"/>
-					<br/>[[${blurb}]]<br/>
-					<input type = "hidden" name = "id" th:field = "*{id}" readonly>
-				</h3>
-				</td>
-			</tr>
-		</table>
+<form th:action = "@{/posted}" th:object = "${history}" method = "post">
+<br/><span th:insert = "toolbar.html" ></span>
+<br/><br/>
 
-		<br/>
-		<fieldset>
-			<legend>summary</legend>
-			[[${historySum}]]
-		</fieldset>
-
-		<br/>
-		<table class = "main">
-			<tr>
-				<th class = "shrt">
-					<button th:onclick = "javascript: location.href='/listing';">&#8592;</button>
-					<button>&#8594;</button>
-				</th>
-				<td>
-		<span class = "grp">
+<table style = "width:400px;" >
+<tr>
+	<td>beg</td>
+	<td>
+		<span style = "white-space: nowrap;">
 		<input type = "radio" name = "datebegpre" value = "-" th:field = "*{datebegpre}">-
 		<input type = "radio" name = "datebegpre" value = "+" th:field = "*{datebegpre}">+
-			<input type = "text" name = "datebeg" placeholder = "datebeg"
-				th:field = "*{datebeg}"
-				title = "attempt to use 4 digit year; otherwise use SQL 0004-00-00-00.00.00"/></span><br/>
-					<span class = "grp">
-		<input type = "radio" name = "dateendpre" value = "-" th:field = "*{dateendpre}">-
-		<input type = "radio" name = "dateendpre" value = "+" th:field = "*{dateendpre}">+
-			<input type = "text" name = "dateend" placeholder = "dateend"
-				th:field = "*{dateend}"/></span>
-				</td>
-			</tr>
+		<input type = "text" name = "datebeg" placeholder = "datebeg"
+			th:field = "*{datebeg}" title = "attempt to use 4 digit year; otherwise use SQL 0004-00-00-00.00.00"/>
+		</span>
+		</td>
 
-			<th>
-				<button>&#8592;</button>
-				<button>&#8594;</button>
-			</th>
-			<td>
-				<select name = "eramain"><!--title = "Scribes, Judges, Kings"-->
-					<option>eramain</option>
-					<option>Hebrew Prehistoric</option>
-					<option>Hebrew Patriarchs</option>
-					<option>Hebrew -1500 -1100 Soferim/Shoftim </option>
-					<option>Hebrew -1100 -0900 United Monarchies </option>
-					<option>Hebrew -0900 -0586 Divided Monarchies </option>
-					<option>Hebrew -0586 -0170 Persian/Hellenistic period </option>
-					<option>Hebrew -0170 +0600 Chazal (Sages) </option>
-					<option>Hebrew -0170 +0030 Chazal Zugot (Pairs) / Hasmonean </option>
-					<option>Hebrew +0030 +0200 Chazal Tannaim (Repeaters)</option>
-					<option>Hebrew +0200 +0500 Chazal Amoraim (Spokesmen)</option>
-					<option>Hebrew +0500 +0600 Chazal Savoraim (Reasoner)</option>
-					<option>Hebrew +0589 +1038 Geonim (splendor)</option>
-					<option>Hebrew +1038 +1563 Rishonim (first)</option>
-					<option>Hebrew +1563 +2020 Acharonim (last) / Modern</option>
-
-					<option>Africa Prehistoric</option>
-					<option>Africa Egypt Old Kingdom</option>
-					<option>Africa Egypt Mid Kingdom</option>
-					<option>Africa Egypt New Kingdom</option>
-					<option>Africa Egypt Persian Period</option>
-					<option>Africa Egypt Hellenistic Period</option>
-					<option>Africa Egypt Caliphates</option>
-					<option>Africa PostColonial</option>
-					<option>Africa Modern</option>
-
-					<option>Mesopotamia Prehistoric</option>
-					<option>Mesopotamia Sumer Empire</option>
-					<option>Mesopotamia Assyria Empire</option>
-					<option>Mesopotamia Babylon Empire</option>
-					<option>Mesopotamia Persia Empire</option>
-					<option>Mesopotamia Parthia Empire</option>
-					<option>Mesopotamia Sassanid Empire</option>
-					<option>Mesopotamia Islam Caliphates</option>
-					<option>Mesopotamia Modern</option>
-
-					<option>India Prehistoric</option>
-					<option>India Bronze / IVC & OCP cultures</option>
-					<option>India Iron / Vedic Period</option>
-					<option>India Buddhist Period</option>
-					<option>India Gupta Empire</option>
-					<option>India Medieval Period / Cholas</option>
-					<option>India Sultunates</option>
-					<option>India Colonial</option>
-					<option>India Modern</option>
-
-					<option>China Prehistoric</option>
-					<option>China Sages</option>
-					<option>China Xia/Shang/Zhou</option>
-					<option>China Qin&Han Empires</option>
-					<option>China 6 Dynasties</option>
-					<option>China Sui/Tang/Song</option>
-					<option>China Yuan/Ming/Qing</option>
-					<option>China YuaNModern</option>
-
-					<option>Europe Prehistoric</option>
-					<option>Europe Minoan Empire</option>
-					<option>Europe Mycanean Empire</option>
-					<option>Europe Greek Monarchies</option>
-					<option>Europe Macedon Empire</option>
-					<option>Europe Roman Empire</option>
-					<option>Europe Byzantine/Gothic Empires</option>
-					<option>Europe Renaissance/Reformation</option>
-					<option>Europe Modern</option>
-
-					<option>America Prehistoric/Archaic</option>
-					<option>America Woodland</option>
-					<option>America Colonial</option>
-					<option>America Modern</option>
-
-				</select>
-
-				<select name = "locale">
-					<option>locale</option>
-					<option>Canaan</option>
-					<option>Africa NW</option>
-					<option>Africa NE</option>
-					<option>Africa South</option>
-					<option>Mesopotamia, Turkey</option>
-					<option>Mesopotamia, Iraq</option>
-					<option>Mesopotamia, Iran</option>
-					<option>Mesopotamia, SaudiArabia</option>
-					<option>Asia, South (India)</option>
-					<option>Asia, East (China)</option>
-					<option>Europe, West</option>
-					<option>Europe, East</option>
-					<option>America North</option>
-					<option>America Central</option>
-					<option>America South</option>
-					<option>Australia</option>
-					<option>Antartica</option>
-					<option>Ocean Pacific</option>
-					<option>Ocean Atlantic</option>
-					<option>Ocean Indian</option>
-					<option>Worldwide</option>
-				</select>
-				<br/>
-				<input class = "long" type = "text" name = "locations" placeholder = "locations"
-					th:field = "*{locations}"
-					title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity"/>
-			</td>
-			</tr>
-
-			<th>
-				<button>&#8592;</button>
-				<button>&#8594;</button>
-			</th>
-			<td>
-				<input class = "long" type = "text" name = "personname" placeholder = "personname"
-					th:field = "*{personname}"
-					title = "ideally: period dynasty # king # firstName lastName, commonName"/><br/>
-				<textarea class = "long" type = "text" name = "eventmain" placeholder = "eventmain"
-					th:field = "*{eventmain}" rows = "2" cols = "50"
-					title = "short description of primary activities"/>
-			</td>
-			</tr>
-
-			<th>
-				<button>&#8592;</button>
-				<button>&#8594;</button>
-			</th>
-			<td>
-				<input class = "long" type = "text" name = "referenced" placeholder = "referenced"
-					title = "short list of supporting evidences or references "
-					th:field = "*{referenced}"/><br/>
-				<input class = "long" type = "text" name = "groupings" placeholder = "groupings"
-					title = "tagged information, comma separated"
-					th:field = "*{groupings}"/>
-			</td>
-			</tr>
-
-			<!--https://stackoverflow.com/questions/63683474/how-to-put-variable-to-img-src-path-in-spring-with-thymeleaf /-->
-			<th><img th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
-				th:onclick = "javascript: showImage(this);"/></th>
-			<td>
-				<input class = "long" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
-					th:field = "*{mediaicopath}"
-					title = "ideally a curated (squared, low resolution) jpg"/>
-			</td>
-			</tr>
-		</table>
+	<td rowspan = "8">
+		<img th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
+			th:onclick = "javascript: showImage(this);"/>
 
 		<br/>
-		<button name = "nav" value = "back"><<<</button>
-		<button name = "nav" value = "list">List</button>
-		<button name = "nav" value = "delete">Delete</button>
-		<button name = "nav" value = "save">Save</button>
-		<button name = "nav" value = "clear">Clear</button>
-		<button name = "nav" value = "frwd">>>></button>
-	</form>
+		<span style = "white-space: nowrap;">ico
+		<input class = "wide" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
+			th:field = "*{mediaicopath}"
+			title = "ideally a curated (squared, low resolution) jpg"/>
+		</span>
+		<br /><hr />
+		<span th:text = "${historySum}"></span>
+	</td>
+</tr>
 
-	<br/><h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span></h6>
-	<hr/>
-	<a href = "/">return</a>
+	</tr>
 
-</center>
+<tr>
+	<td>end</td>
+	<td>
+		<span style = "white-space: nowrap;">
+		<input type = "radio" name = "dateendpre" value = "-" th:field = "*{dateendpre}">-
+		<input type = "radio" name = "dateendpre" value = "+" th:field = "*{dateendpre}">+
+		<input type = "text" name = "dateend" placeholder = "dateend"
+			th:field = "*{dateend}"/>
+		</span>
+		</td>
+	</tr>
+
+<tr>
+	<td>era<br />geo</td>
+	<td><span style = "white-space: nowrap; text-align: right;" title = "high level timeframe era" >
+		<select class = "wide" id = "eramain">
+		    <option value="0">select option</option>
+    		<option th:each="option : ${eramain}" th:value="${option}" th:text="${option}"></option>
+			</select>
+		</span><br />
+		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
+		<select class = "wide" id = "locales">
+		    <option value="0">select option</option>
+    		<option th:each="option : ${locales}" th:value="${option}" th:text="${option}"></option>
+			</select>
+		</span></tr>
+
+<tr>
+	<td>loc</td>
+	<td><textarea class = "wide" name = "locations" placeholder = "locations"
+		th:field = "*{locations}"
+		title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity" ></textarea>
+		</td>
+	</tr>
+
+<tr>
+	<td>who</td>
+	<td><textarea class = "wide" name = "personname" placeholder = "personname"
+		th:field = "*{personname}"
+		title = "ideally: period dynasty # king # firstName lastName, commonName" ></textarea>
+		</td>
+	</tr>
+
+<tr>
+	<td>&nbsp; d<br/>&nbsp; e<br/>&nbsp; s<br/>&nbsp; c</td>
+	<td><textarea class = "wide" type = "text" name = "eventmain" placeholder = "eventmain"
+		th:field = "*{eventmain}"
+		title = "short description of primary activities" ></textarea>
+		</td>
+	</tr>
+
+<tr>
+	<td>refs</td>
+	<td><textarea class = "wide" name = "referenced" placeholder = "referenced"
+		th:field = "*{referenced}"
+		title = "short list of supporting evidences or references" ></textarea>
+		</td>
+	</tr>
+
+<tr>
+	<td>tags</td>
+	<td><textarea class = "wide" name = "groupings" placeholder = "groupings"
+		th:field = "*{groupings}"
+		title = "tagged information, comma separated" ></textarea>
+		</td>
+	</tr>
+
+</table>
+</form>
+
+<br/><h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span></h6>
+<br /><a href = "/">return</a>
+
 </body></html>

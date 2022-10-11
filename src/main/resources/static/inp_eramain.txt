@@ -1,0 +1,62 @@
+Hebrew Prehistoric
+Hebrew Patriarchs
+Hebrew -1500 -1100 Soferim/Shoftim
+Hebrew -1100 -0900 United Monarchies
+Hebrew -0900 -0586 Divided Monarchies
+Hebrew -0586 -0170 Persian/Hellenistic period
+Hebrew -0170 +0600 Chazal (Sages)
+Hebrew -0170 +0030 Chazal Zugot (Pairs) / Hasmonean
+Hebrew +0030 +0200 Chazal Tannaim (Repeaters)
+Hebrew +0200 +0500 Chazal Amoraim (Spokesmen)
+Hebrew +0500 +0600 Chazal Savoraim (Reasoner)
+Hebrew +0589 +1038 Geonim (splendor)
+Hebrew +1038 +1563 Rishonim (first)
+Hebrew +1563 +2020 Acharonim (last) / Modern
+Africa Prehistoric
+Africa Egypt Old Kingdom
+Africa Egypt Mid Kingdom
+Africa Egypt New Kingdom
+Africa Egypt Persian Period
+Africa Egypt Hellenistic Period
+Africa Egypt Caliphates
+Africa PostColonial
+Africa Modern
+Mesopotamia Prehistoric
+Mesopotamia Sumer Empire
+Mesopotamia Assyria Empire
+Mesopotamia Babylon Empire
+Mesopotamia Persia Empire
+Mesopotamia Parthia Empire
+Mesopotamia Sassanid Empire
+Mesopotamia Islam Caliphates
+Mesopotamia Modern
+India Prehistoric
+India Bronze / IVC & OCP cultures
+India Iron / Vedic Period
+India Buddhist Period
+India Gupta Empire
+India Medieval Period / Cholas
+India Sultunates
+India Colonial
+India Modern
+China Prehistoric
+China Sages
+China Xia/Shang/Zhou
+China Qin&Han Empires
+China 6 Dynasties
+China Sui/Tang/Song
+China Yuan/Ming/Qing
+China YuaNModern
+Europe Prehistoric
+Europe Minoan Empire
+Europe Mycenea Empire
+Europe Greek Monarchies
+Europe Macedon Empire
+Europe Roman Empire
+Europe Byzantine/Gothic Empires
+Europe Renaissance/Reformation
+Europe Modern
+America Prehistoric/Archaic
+America Woodland
+America Colonial
+America Modern

@@ -1,8 +1,11 @@
 package com.humanities.history.controller;
 
+import com.humanities.history.configuration.GeneralConfiguration;
 import com.humanities.history.services.History;
 import com.humanities.history.services.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,6 +29,8 @@ import java.util.logging.Logger;
 public class HistoryController {
 
 	@Autowired private IHistoryService historyService;
+	@Autowired private GeneralConfiguration genConfig;
+
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
 	private static final String ENCODED = "历史 | &#21382;&#21490; | \u5386\u53f2 | \\u5386\\u53f2";
 	private static final String RETURN = "<br /><a href = '/' >return</a>";
@@ -56,6 +67,9 @@ public class HistoryController {
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
 		MAV.addObject("blurb", ENCODED);
+
+		MAV.addObject("eramain", genConfig.eramain);
+		MAV.addObject("locales", genConfig.locales);
 		//
 		System.out.println("history: " + history.showHistory());
 		return MAV;
@@ -83,6 +97,9 @@ public class HistoryController {
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
 		MAV.addObject("blurb", ENCODED);
+
+		MAV.addObject("eramain", genConfig.eramain);
+		MAV.addObject("locales", genConfig.locales);
 		//
 		System.out.println("history: " + history.showHistory());
 		return MAV;
@@ -152,7 +169,9 @@ public class HistoryController {
 	@PostMapping( "/delete" ) public ModelAndView deleter(@ModelAttribute History history) {
 		//
 		System.out.println("deleting: " + history.showHistory());
-		try { historyService.delete(history); }
+		try {
+		//	historyService.delete(history);
+		}
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
 		ModelAndView MAV = showInputs();
 		return MAV;
