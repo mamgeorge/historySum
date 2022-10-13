@@ -47,9 +47,7 @@ select { font-size: 9pt; width: 400px; }
 		<br /><hr />
 		<span th:text = "${historySum}"></span>
 	</td>
-</tr>
-
-	</tr>
+</tr><!-- beg, img -->
 
 <tr>
 	<td>end</td>
@@ -61,22 +59,29 @@ select { font-size: 9pt; width: 400px; }
 			th:field = "*{dateend}"/>
 		</span>
 		</td>
-	</tr>
+	</tr><!-- end -->
 
 <tr>
+	<!-- java LinkedHashmap thymeleaf form select option
+		https://stackoverflow.com/questions/55199184/how-to-select-object-from-thymeleaf-form
+		https://stackoverflow.com/questions/26181188/how-to-map-hashmap-keys-to-a-select-in-thymeleaf
+		-->
 	<td>era<br />geo</td>
 	<td><span style = "white-space: nowrap; text-align: right;" title = "high level timeframe era" >
-		<select class = "wide" id = "eramain">
+		<select th:field="*{eramain}" class = "wide" id = "eramain">
 		    <option value="0">select option</option>
-    		<option th:each="option : ${eramain}" th:value="${option}" th:text="${option}"></option>
+    		<option th:each="era : ${eramain}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
-		</span><br />
+		</span>
+
+		<br />
 		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
-		<select class = "wide" id = "locales">
+		<select th:field="*{locations}" class = "wide" id = "locations">
 		    <option value="0">select option</option>
-    		<option th:each="option : ${locales}" th:value="${option}" th:text="${option}"></option>
+    		<option th:each="loc : ${locations}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
-		</span></tr>
+		</span>
+	</tr><!-- era, geo -->
 
 <tr>
 	<td>loc</td>
@@ -84,7 +89,7 @@ select { font-size: 9pt; width: 400px; }
 		th:field = "*{locations}"
 		title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity" ></textarea>
 		</td>
-	</tr>
+	</tr><!-- loc -->
 
 <tr>
 	<td>who</td>
@@ -92,7 +97,7 @@ select { font-size: 9pt; width: 400px; }
 		th:field = "*{personname}"
 		title = "ideally: period dynasty # king # firstName lastName, commonName" ></textarea>
 		</td>
-	</tr>
+	</tr><!-- who -->
 
 <tr>
 	<td>&nbsp; d<br/>&nbsp; e<br/>&nbsp; s<br/>&nbsp; c</td>
@@ -100,7 +105,7 @@ select { font-size: 9pt; width: 400px; }
 		th:field = "*{eventmain}"
 		title = "short description of primary activities" ></textarea>
 		</td>
-	</tr>
+	</tr><!-- desc -->
 
 <tr>
 	<td>refs</td>
@@ -108,7 +113,7 @@ select { font-size: 9pt; width: 400px; }
 		th:field = "*{referenced}"
 		title = "short list of supporting evidences or references" ></textarea>
 		</td>
-	</tr>
+	</tr><!-- refs -->
 
 <tr>
 	<td>tags</td>
@@ -116,7 +121,7 @@ select { font-size: 9pt; width: 400px; }
 		th:field = "*{groupings}"
 		title = "tagged information, comma separated" ></textarea>
 		</td>
-	</tr>
+	</tr><!-- tags -->
 
 </table>
 </form>

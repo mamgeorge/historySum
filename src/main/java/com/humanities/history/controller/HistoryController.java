@@ -69,7 +69,7 @@ public class HistoryController {
 		MAV.addObject("blurb", ENCODED);
 
 		MAV.addObject("eramain", genConfig.eramain);
-		MAV.addObject("locales", genConfig.locales);
+		MAV.addObject("locations", genConfig.locales);
 		//
 		System.out.println("history: " + history.showHistory());
 		return MAV;
@@ -99,7 +99,7 @@ public class HistoryController {
 		MAV.addObject("blurb", ENCODED);
 
 		MAV.addObject("eramain", genConfig.eramain);
-		MAV.addObject("locales", genConfig.locales);
+		MAV.addObject("locations", genConfig.locales);
 		//
 		System.out.println("history: " + history.showHistory());
 		return MAV;

@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /*
 	This attempt to enforce a StandardCharsets in the ThymeleafViewResolver did not work.
@@ -28,23 +29,36 @@ public class GeneralConfiguration {
 
 	// https://stackoverflow.com/questions/44399422/read-file-from-resources-folder-in-spring-boot
 	// https://www.baeldung.com/thymeleaf-select-option
-	private static final  String resourcePath = "src/main/resources/static/" ;
-	private static final  String fileNameEra = resourcePath + "inp_eramain.txt";
-	private static final  String fileNameLoc = resourcePath + "inp_locales.txt";
-	private static final  String EOL = "\n";
-	public List<String> eramain = null;
-	public List<String> locales = null;
+	private static final String resourcePath = "src/main/resources/static/";
+	private static final String fileNameEra = resourcePath + "inp_eramain.txt";
+	private static final String fileNameLoc = resourcePath + "inp_locales.txt";
 
-	public GeneralConfiguration() {
+	private static final String EOL = "\n";
+	public Map<String, String> eramain = null;
+	public Map<String, String> locales = null;
+
+	public GeneralConfiguration( ) {
 
 		System.out.println("#### init ####: ");
 		try {
 			String txtLinesEra = new String(Files.readAllBytes(Paths.get(fileNameEra)));
-			eramain = Arrays.asList(txtLinesEra.split(EOL));
+			eramain = parseOptions(txtLinesEra);
 
 			String txtLinesLoc = new String(Files.readAllBytes(Paths.get(fileNameLoc)));
-			locales = Arrays.asList(txtLinesLoc.split(EOL));
+			locales = parseOptions(txtLinesLoc);
 		}
 		catch (IOException ex) { System.out.println("ERROR: " + ex.getMessage()); }
+	}
+
+	public static Map<String, String> parseOptions(String txt) {
+
+		Map<String, String> map = new LinkedHashMap<>();
+		String[] txtArray = txt.split(EOL);
+		Arrays.stream(txtArray).forEach(pair -> {
+				int mdl = pair.indexOf("|");
+				map.put(pair.substring(0, mdl).trim(), pair.substring(mdl + 1).trim());
+			}
+		);
+		return map;
 	}
 }

@@ -1,29 +1,29 @@
-Canaan (Israel, Philistia)
-Africa North (Algeria, Libya, Mauritania, Egypt, ...)
-Africa East (Sudan, Ethiopia, Tanzania, Somalia, SouthSudan, ...)
-Africa South (Angola, SouthAfrica, Namibia, Mozambique, ...)
-Africa West (Niger, Mali, Nigeria, CoteDIvoire, ...)
-Africa Central (DR Congo, Chad, Central African Republic,  Cameroon, ...)
-WestAsia (aka NearEast, Mesopotamia) Turkey
-WestAsia (aka NearEast, Mesopotamia) Iraq
-WestAsia (aka NearEast, Mesopotamia) Iran
-WestAsia (aka NearEast, Mesopotamia) Syria, Lebanon
-WestAsia (aka NearEast, Mesopotamia) SaudiArabia, Jordan, Yemen, Oman, ...
-Asia, East (China, Mongolia, Japan, N&SKorea, ...)
-Asia, South (India, Pakistan, Afghanistan, Bangladesh, ...)
-Asia, Central (Kazakhstan, Turkmenistan, Uzbekistan, Kyrgyzstan, Tajikistan)
-Asia, SouthEast (Indonesia, Myanmar, Vietnam, ...)
-Europe, NE (aka North Asia: Siberia)
-Europe, West (England, France, Spain, Germany, Italy, Poland, Scandinavian, ...)
-Europe, East (Russia, Belarus, Ukraine, Romania, Greece, Baltics, ...)
-America North (United States, Canada)
-America Central (Mexico, Nicaragua, Honduras, Guatemala, Panama, ...)
-America South (Brazil, Argentina, Peru, Colombia, Bolivia, Venezuela, Chile, ...)
-Australia
-Antartica
-Ocean Pacific
-Ocean Atlantic
-Ocean Indian
-Ocean North (Arctic)
-Ocean South
-Worldwide
+canisrl	| Canaan (Israel, Philistia)
+afrnort	| Africa North (Algeria, Libya, Mauritania, Egypt, ...)
+afreast	| Africa East (Sudan, Ethiopia, Tanzania, Somalia, SouthSudan, ...)
+afrsoth	| Africa South (Angola, SouthAfrica, Namibia, Mozambique, ...)
+afrwest	| Africa West (Niger, Mali, Nigeria, CoteDIvoire, ...)
+afrcent	| Africa Central (DR Congo, Chad, Central African Republic,  Cameroon, ...)
+mesturk	| WestAsia (aka NearEast, Mesopotamia) Turkey
+mesiraq	| WestAsia (aka NearEast, Mesopotamia) Iraq
+mesiran	| WestAsia (aka NearEast, Mesopotamia) Iran
+messyri	| WestAsia (aka NearEast, Mesopotamia) Syria, Lebanon
+mesarab	| WestAsia (aka NearEast, Mesopotamia) SaudiArabia, Jordan, Yemen, Oman, ...
+asichin	| Asia, East (China, Mongolia, Japan, N&SKorea, ...)
+asiindi	| Asia, South (India, Pakistan, Afghanistan, Bangladesh, ...)
+asicent	| Asia, Central (Kazakhstan, Turkmenistan, Uzbekistan, Kyrgyzstan, Tajikistan)
+asisest	| Asia, SouthEast (Indonesia, Myanmar, Vietnam, ...)
+eurnest	| Europe, NE (aka North Asia: Siberia)
+eurwest	| Europe, West (England, France, Spain, Germany, Italy, Poland, Scandinavian, ...)
+eureast	| Europe, East (Russia, Belarus, Ukraine, Romania, Greece, Baltics, ...)
+amenrth	| America North (United States, Canada)
+amecent	| America Central (Mexico, Nicaragua, Honduras, Guatemala, Panama, ...)
+amesout	| America South (Brazil, Argentina, Peru, Colombia, Bolivia, Venezuela, Chile, ...)
+austral	| Australia
+antarti	| Antartica
+ocnpacf	| Ocean Pacific
+ocnatln	| Ocean Atlantic
+ocnindi	| Ocean Indian
+ocnnort	| Ocean North (Arctic)
+ocnsoth	| Ocean South
+worldwd	| Worldwide
