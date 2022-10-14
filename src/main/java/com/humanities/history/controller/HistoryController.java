@@ -4,8 +4,6 @@ import com.humanities.history.configuration.GeneralConfiguration;
 import com.humanities.history.services.History;
 import com.humanities.history.services.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletContext;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,7 +24,6 @@ public class HistoryController {
 	@Autowired private GeneralConfiguration genConfig;
 
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
-	private static final String ENCODED = "历史 | &#21382;&#21490; | \u5386\u53f2 | \\u5386\\u53f2";
 	private static final String RETURN = "<br /><a href = '/' >return</a>";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
@@ -40,7 +31,6 @@ public class HistoryController {
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
 		System.out.println("home");
-		LOGGER.info("home");
 		ModelAndView MAV = new ModelAndView("home", new HashMap<>());
 		return MAV;
 	}
@@ -49,7 +39,7 @@ public class HistoryController {
 		//
 		List<History> histories = historyService.findAll();
 		System.out.println("histories: " + histories.size());
-		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, 20); }
+		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
 		//
 		HashMap<String, List<History>> hashMap = new HashMap<>();
 		hashMap.put("histories", histories);
@@ -62,11 +52,11 @@ public class HistoryController {
 	@GetMapping( "/inputs" ) public ModelAndView showInputs( ) {
 		//
 		History history = History.getSample();
+
 		ModelAndView MAV = new ModelAndView();
 		MAV.setViewName("inputs");
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
-		MAV.addObject("blurb", ENCODED);
 
 		MAV.addObject("eramain", genConfig.eramain);
 		MAV.addObject("locations", genConfig.locales);
@@ -96,7 +86,6 @@ public class HistoryController {
 		MAV.setViewName("inputs");
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
-		MAV.addObject("blurb", ENCODED);
 
 		MAV.addObject("eramain", genConfig.eramain);
 		MAV.addObject("locations", genConfig.locales);
@@ -144,7 +133,6 @@ public class HistoryController {
 		MAV.setViewName("inputs");
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
-		MAV.addObject("blurb", ENCODED);
 		return MAV;
 	}
 
@@ -162,7 +150,6 @@ public class HistoryController {
 		MAV.setViewName("inputs");
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
-		MAV.addObject("blurb", ENCODED);
 		return MAV;
 	}
 
@@ -170,7 +157,7 @@ public class HistoryController {
 		//
 		System.out.println("deleting: " + history.showHistory());
 		try {
-		//	historyService.delete(history);
+			//	historyService.delete(history);
 		}
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
 		ModelAndView MAV = showInputs();

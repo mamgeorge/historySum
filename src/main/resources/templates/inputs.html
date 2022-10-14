@@ -2,18 +2,11 @@
 <html lang = "en" xmlns:th = "https://www.thymeleaf.org">
 <head><title>inputs</title><meta charset = "UTF-8">
 <link rel = "stylesheet" th:href = "@{/basics.css}">
-<script type = "text/javascript" th:src = "@{/basics.js}"></script>
 <style>
-body, table, form, fieldset { margin: auto; text-align: center; font-family: verdana; }
-table, td, th { padding: 0px; font-size: 14pt;
-	border-radius: 4px; border-spacing: 5px; }
-td, th { padding: 2px; background: transparent; border: 1px solid black; vertical-align: top; }
-h1, h2, h3, h4, h5, h6, form { text-align: center; display: inline; }
-img { width: 300px; height: 300px; border: 0px; border-radius: 4px; }
-input, select { text-align: left; padding: 0px; border: 0px;  font-size: 14pt; }
-textarea { border: 0px; background: transparent; border-radius: 4px; font-size: 14pt; width: 400px; }
-select { font-size: 9pt; width: 400px; }
+img.inputs	{ width: 400px; height: 400px; border-radius: 8px; }
+input.ico	{ width: 350px; font-size: 10pt; }
 </style>
+<script type = "text/javascript" th:src = "@{/basics.js}"></script>
 </head>
 
 <body><br /><h3>History Inputs</h3><br/>
@@ -35,15 +28,16 @@ select { font-size: 9pt; width: 400px; }
 		</td>
 
 	<td rowspan = "8">
-		<img th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
+		<img class = "inputs" th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
 			th:onclick = "javascript: showImage(this);"/>
 
 		<br/>
-		<span style = "white-space: nowrap;">ico
-		<input class = "wide" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
-			th:field = "*{mediaicopath}"
-			title = "ideally a curated (squared, low resolution) jpg"/>
-		</span>
+			<span style = "white-space: nowrap;">ico
+			<input class = "ico" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
+				th:field = "*{mediaicopath}"
+				title = "ideally a curated (square, low resolution) jpg"/>
+			</span>
+		
 		<br /><hr />
 		<span th:text = "${historySum}"></span>
 	</td>
@@ -68,7 +62,7 @@ select { font-size: 9pt; width: 400px; }
 		-->
 	<td>era<br />geo</td>
 	<td><span style = "white-space: nowrap; text-align: right;" title = "high level timeframe era" >
-		<select th:field="*{eramain}" class = "wide" id = "eramain">
+		<select th:field="*{eramain}" id = "eramain">
 		    <option value="0">select option</option>
     		<option th:each="era : ${eramain}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
@@ -76,7 +70,7 @@ select { font-size: 9pt; width: 400px; }
 
 		<br />
 		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
-		<select th:field="*{locations}" class = "wide" id = "locations">
+		<select th:field="*{locations}" id = "locations">
 		    <option value="0">select option</option>
     		<option th:each="loc : ${locations}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
@@ -85,7 +79,7 @@ select { font-size: 9pt; width: 400px; }
 
 <tr>
 	<td>loc</td>
-	<td><textarea class = "wide" name = "locations" placeholder = "locations"
+	<td><textarea name = "locations" placeholder = "locations"
 		th:field = "*{locations}"
 		title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity" ></textarea>
 		</td>
@@ -93,7 +87,7 @@ select { font-size: 9pt; width: 400px; }
 
 <tr>
 	<td>who</td>
-	<td><textarea class = "wide" name = "personname" placeholder = "personname"
+	<td><textarea name = "personname" placeholder = "personname"
 		th:field = "*{personname}"
 		title = "ideally: period dynasty # king # firstName lastName, commonName" ></textarea>
 		</td>
@@ -101,7 +95,7 @@ select { font-size: 9pt; width: 400px; }
 
 <tr>
 	<td>&nbsp; d<br/>&nbsp; e<br/>&nbsp; s<br/>&nbsp; c</td>
-	<td><textarea class = "wide" type = "text" name = "eventmain" placeholder = "eventmain"
+	<td><textarea type = "text" name = "eventmain" placeholder = "eventmain"
 		th:field = "*{eventmain}"
 		title = "short description of primary activities" ></textarea>
 		</td>
@@ -109,7 +103,7 @@ select { font-size: 9pt; width: 400px; }
 
 <tr>
 	<td>refs</td>
-	<td><textarea class = "wide" name = "referenced" placeholder = "referenced"
+	<td><textarea name = "referenced" placeholder = "referenced"
 		th:field = "*{referenced}"
 		title = "short list of supporting evidences or references" ></textarea>
 		</td>
@@ -117,7 +111,7 @@ select { font-size: 9pt; width: 400px; }
 
 <tr>
 	<td>tags</td>
-	<td><textarea class = "wide" name = "groupings" placeholder = "groupings"
+	<td><textarea name = "groupings" placeholder = "groupings"
 		th:field = "*{groupings}"
 		title = "tagged information, comma separated" ></textarea>
 		</td>

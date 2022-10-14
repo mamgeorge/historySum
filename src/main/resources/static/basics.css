@@ -1,24 +1,23 @@
 @charset "UTF-8";
 
 body { background: url('/images/bck_parchment.jpg') #d0d0c0; font-family: verdana, monospace;
-	margin: auto; text-align: center; font-size: 9pt; }
+	margin: auto; text-align: center; font-size: 10pt; }
 
-h1, h2, h3, h4, h5, h6 { color: #000080; display: inline; }
-
-a, a.hover, a.visited { color: blue; text-decoration: none ; }
-
-table { width: 98%; margin: auto; border: 1px solid black; border-spacing: 0px; border-radius: 10px;
-     background: rgba( 10, 10, 10, 0.7); }
-
+body, table, form, fieldset { margin: auto; text-align: center; font-family: verdana; }
+table, td, th { padding: 0px; border-spacing: 5px; border-radius: 4px; }
+td { text-align: left; }
+th, td { border: 1px solid black; padding: 4px; padding-left: 8px; padding-right: 8px; vertical-align: top;   }
 tr:nth-child(even) { background: rgba( 250, 250, 250, 0.9); }
 tr:nth-child( odd) { background: rgba( 200, 200, 200, 0.9); }
-th, td { border: 0.5px solid black; padding: 4px; padding-left: 16px; font-size: 9pt; }
-td { text-align: left; }
+
+
 // td:nth-child( 3 ) { text-align: right; }
 
-fieldset { display: inline-block; background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
-legend { padding-left: 20px; padding-right: 20px; border-radius: 5px;
-	border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; }
+h1, h2, h3, h4, h5, h6, form { color: #403030; text-align: center; display: inline; }
+button { font-size: 14pt; }
+input, select { text-align: left; background: transparent; padding: 0px; border: 0px;  font-size: 14pt; }
+textarea { border: 0px; background: transparent; border-radius: 4px; font-size: 14pt; width: 400px; }
+select { font-size: 10pt; width: 400px; }
 
 hr { color: #cccccc; width: 80%; }
 

@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th = "https://www.thymeleaf.org">
-<head><title>index</title>
-	<meta charset = "UTF-8">
-	<link rel = "stylesheet" href = "/basics0.css">
-	<style>
-	body { background: url('/images/bck_parchment.jpg'); margin: auto; text-align: center; font-size: 9pt; }
-	body, h1, table, tr, th, td, img, button, .hdr {
-		margin: auto; background-color: transparent; font-family: verdana; }
+<head><title>index</title><meta charset = "UTF-8">
+<link rel = "stylesheet" href = "/basics.css">
+<style>
+img.home { width: 400px; height: 200px; border: 10px #a0a080 outset; border-radius: 15px; }
 
-	table { width: 400px; margin: auto; }
-	table, tr, th, td { border: 0px; margin: auto; }
+td.home { padding: 0px; border: 0px transparent none; background: transparent; }
 
-	h1 { color: #403030; text-decoration: none; }
-
-	img { width: 400px; height: 200px; border: 10px #a0a080 outset; border-radius: 15px; }
-
-	button { width: 200px; height: 70px;
-		background-color: #403030; color: #ffffff; font-weight: bold;
-		border: 5px #a08060 outset; border-radius: 5px; }
-	</style>
+button { width: 180px; height: 80px;
+	background-color: #403030; color: #ffffff;
+	font-weight: bold; font-size: 14pt;
+	border: 10px #a08060 outset; border-radius: 10px; }
+</style>
+<script type = "text/javascript" th:src = "@{/basics.js}"></script>
 </head>
 
 <body><br/>
 <h1>History</h1>
-<b style = "font-size: 7pt;" ><span th:text = "${#dates.formatISO(#dates.createNow())}"/>
+<br/><b style = "font-size: 7pt;" ><span th:text = "${#dates.formatISO(#dates.createNow())}"/>
 	<br/><br/>
 	היסטוריה
 	| umlando
@@ -34,12 +28,12 @@
 	| k'ajláayo'
 </b><br/>
 
-<img src = "/images/history.png"/>
+<img class = "home" src = "/images/history.png"/>
 
 <br/><br/>
 	<table><tr>
-		<td><button onclick ="location.href ='/listing';">Show List</button></td>
-		<td><button onclick ="location.href ='/inputs';" >Add Record</button></td>
+		<td class = "home"><button onclick ="location.href ='/listing';">Show List</button></td>
+		<td class = "home"><button onclick ="location.href ='/inputs';" >Add Record</button></td>
 	</table>
 
 	<br/><a href = "/appendix">appendix</a>

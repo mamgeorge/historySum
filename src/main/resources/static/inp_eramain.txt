@@ -21,15 +21,15 @@ afrhel	| Africa Egypt Hellenistic Period
 afrcal	| Africa Egypt Caliphates
 afrcol	| Africa PostColonial
 afrmod	| Africa Modern
-mespre	| Mesopotamia Prehistoric
-messum	| Mesopotamia Sumer Empire
-mesasr	| Mesopotamia Assyria Empire
-mesbab	| Mesopotamia Babylon Empire
-mesper	| Mesopotamia Persia Empire
-mespar	| Mesopotamia Parthia Empire
-messas	| Mesopotamia Sassanid Empire
-mescal	| Mesopotamia Islam Caliphates
-mesmod	| Mesopotamia Modern
+mespre	| WestAsia Prehistoric
+messum	| WestAsia Sumer Empire
+mesasr	| WestAsia Assyria Empire
+mesbab	| WestAsia Babylon Empire
+mesper	| WestAsia Persia Empire
+mespar	| WestAsia Parthia Empire
+messas	| WestAsia Sassanid Empire
+mescal	| WestAsia Islam Caliphates
+mesmod	| WestAsia Modern
 indpre	| India Prehistoric
 indivc	| India Bronze / IVC & OCP cultures
 indvdc	| India Iron / Vedic Period
