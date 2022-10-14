@@ -9,10 +9,10 @@ td { text-align: left; }
 th, td { border: 1px solid black; padding: 4px; padding-left: 8px; padding-right: 8px; vertical-align: top;   }
 tr:nth-child(even) { background: rgba( 250, 250, 250, 0.9); }
 tr:nth-child( odd) { background: rgba( 200, 200, 200, 0.9); }
-
-
 // td:nth-child( 3 ) { text-align: right; }
 
+a { color: #403030; text-decoration: none; font-size: 10pt;  }
+a:hover, a:visited { color: blue; }
 h1, h2, h3, h4, h5, h6, form { color: #403030; text-align: center; display: inline; }
 button { font-size: 14pt; }
 input, select { text-align: left; background: transparent; padding: 0px; border: 0px;  font-size: 14pt; }

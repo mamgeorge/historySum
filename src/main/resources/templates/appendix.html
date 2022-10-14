@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th = "https://www.thymeleaf.org">
-<head><title>index</title>
-	<meta charset = "UTF-8">
-	<link rel = "stylesheet" href = "/basics.css">
-	<style>
-	img { border: 10px #a0a080 outset; width: 400px; height: 267px; border-radius: 15px; }
-	</style>
+<head><title>index</title><meta charset = "UTF-8">
+<link rel = "stylesheet" th:href = "@{/basics.css}">
+<style>
+fieldset { background: rgba( 0, 0, 0, 0.2); border-radius: 10px; }
+</style>
 </head>
 
-<body><center><br/><h3>appendix</h3>
-	<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}"/></b>
+<body><br/><h3>appendix</h3>
+	<br/><h6><span th:text = "${ #dates.formatISO( #dates.createNow() ) }" /></h6>
 	<br/>
 	<br/><hr/>
 	<a th:href = "@{/home}">/home</a>
@@ -60,6 +59,5 @@
 	<hr/>
 	<a href = "/">return</a>
 
-</center>
 </body>
 </html>

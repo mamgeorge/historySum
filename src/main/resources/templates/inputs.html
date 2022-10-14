@@ -3,8 +3,9 @@
 <head><title>inputs</title><meta charset = "UTF-8">
 <link rel = "stylesheet" th:href = "@{/basics.css}">
 <style>
-img.inputs	{ width: 400px; height: 400px; border-radius: 8px; }
-input.ico	{ width: 350px; font-size: 10pt; }
+img.inputs		{ width: 400px; height: 400px; border-radius: 8px; }
+input.inputs	{ width: 350px; font-size: 10pt; }
+input.none		{ display: none;}
 </style>
 <script type = "text/javascript" th:src = "@{/basics.js}"></script>
 </head>
@@ -16,6 +17,7 @@ input.ico	{ width: 350px; font-size: 10pt; }
 <br/><br/>
 
 <table style = "width:400px;" >
+
 <tr>
 	<td>beg</td>
 	<td>
@@ -27,19 +29,20 @@ input.ico	{ width: 350px; font-size: 10pt; }
 		</span>
 		</td>
 
-	<td rowspan = "8">
+	<td rowspan = "8"><!-- img -->
 		<img class = "inputs" th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
-			th:onclick = "javascript: showImage(this);"/>
+			th:onclick = "javascript: showImage(this);" th:title = "${history.id}" />
 
-		<br/>
+		<br/><!-- mediaicopath -->
 			<span style = "white-space: nowrap;">ico
-			<input class = "ico" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
+			<input class = "inputs" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
 				th:field = "*{mediaicopath}"
 				title = "ideally a curated (square, low resolution) jpg"/>
 			</span>
 		
-		<br /><hr />
-		<span th:text = "${historySum}"></span>
+		<br />
+			<hr /><!-- historySum -->
+			<span th:text = "${historySum}"></span>
 	</td>
 </tr><!-- beg, img -->
 
@@ -117,10 +120,13 @@ input.ico	{ width: 350px; font-size: 10pt; }
 		</td>
 	</tr><!-- tags -->
 
+<input class = "none" type = "number" th:field="*{id}" placeholder = "id" title = "id" />
 </table>
 </form>
 
-<br/><h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span></h6>
+<br/>
+<h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span></h6>
+
 <br /><a href = "/">return</a>
 
 </body></html>

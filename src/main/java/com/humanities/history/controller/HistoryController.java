@@ -25,6 +25,7 @@ public class HistoryController {
 
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
 	private static final String RETURN = "<br /><a href = '/' >return</a>";
+	private static final String EOL = "\n";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
 
@@ -101,8 +102,7 @@ public class HistoryController {
 		if ( history == null || history.getId() == null ) {
 			history = History.getSample();
 			String msg = "WARNING! HISTORY OBJECT WAS EMPTY!";
-			System.out.println(
-				"\n" + "#".repeat(msg.length()) + "\n" + msg + "\n" + "#".repeat(msg.length()) + "\n");
+			System.out.println(EOL + "#".repeat(msg.length()) + EOL + msg + EOL + "#".repeat(msg.length()) + EOL);
 		}
 		Long longId = history.getId();
 		if ( nav != null && nav.equals("back") ) {

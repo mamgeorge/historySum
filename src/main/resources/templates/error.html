@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th = "https://www.thymeleaf.org">
-<head><title>error</title>
-	<meta charset = "UTF-8">
-	<link rel = "stylesheet" href = "/basics.css">
-	<style>
-	img { border: 10px #a0a080 outset; width: 450px; height: 300px; border-radius: 15px; }
-	</style>
+<head><title>error</title><meta charset = "UTF-8">
+<link rel = "stylesheet" href = "/basics.css">
 </head>
 
-<body>
-<center><h3>error</h3>
-	<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}"/></b>
+<body><h3>error</h3>
+<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}"/></b>
 
 	<br/><br/>field errors<br/>
 	<li th:each = "err : ${#fields.allErrors()}" th:text = "${err}"/>
@@ -51,6 +46,5 @@
 	<hr/>
 	<a href = "/">return</a>
 
-</center>
 </body>
 </html>
