@@ -62,11 +62,11 @@ import static org.springframework.http.HttpHeaders.USER_AGENT;
 
 	@Test void test_history_showHistory( ) {
 		//
-		History history = History.getSample();
+		History history = new History();
 		String txtLines = String.format(FRMT, "history", history.showHistory());
 		//
 		System.out.println(txtLines);
-		assertTrue(history.getDatebeg().contains("begi"));
+		assertTrue(txtLines.contains("history"));
 	}
 
 	@Test void test_historyService_showHistory( ) {

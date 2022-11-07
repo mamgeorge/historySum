@@ -5,40 +5,40 @@
 </head>
 
 <body><h3>error</h3>
-<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}"/></b>
+<br/><b><span th:text = "${#dates.formatISO(#dates.createNow())}" ></span></b>
 
 	<br/><br/>field errors<br/>
-	<li th:each = "err : ${#fields.allErrors()}" th:text = "${err}"/>
+	<li th:each = "err : ${#fields.allErrors()}" th:text = "${err}" ></li>
 
 	<br/><br/>error object<br/>
 	<table style = "width: 50%;">
 		<tr>
 			<th>timestamp</th>
-			<td><span th:text = "${timestamp}"/></td>
+			<td><span th:text = "${timestamp}" ></span></td>
 		</tr>
 		<tr>
 			<th>path</th>
-			<td><span th:text = "${path}"/></td>
+			<td><span th:text = "${path}" ></span></td>
 		</tr>
 		<tr>
 			<th>error</th>
-			<td><span th:text = "${error}"/></td>
+			<td><span th:text = "${error}" ></span></td>
 		</tr>
 		<tr>
 			<th>status</th>
-			<td><span th:text = "${status}"/></td>
+			<td><span th:text = "${status}" ></span></td>
 		</tr>
 		<tr>
 			<th>message</th>
-			<td><span th:text = "${message}"/></td>
+			<td><span th:text = "${message}" ></span></td>
 		</tr>
 		<tr>
 			<th>exception</th>
-			<td><span th:text = "${exception}"/></td>
+			<td><span th:text = "${exception}" ></span></td>
 		</tr>
 		<tr>
 			<th>trace</th>
-			<td><span th:text = "${trace}"/></td>
+			<td><span th:text = "${trace}" ></span></td>
 		</tr>
 	</table>
 

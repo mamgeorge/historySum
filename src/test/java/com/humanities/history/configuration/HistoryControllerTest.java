@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -109,7 +110,7 @@ public class HistoryControllerTest {
 
 	@Test void test_posted( ) {
 		//
-		History history = History.getSample();
+		History history = new History();
 		ModelAndView MAV = historyController.posted(history, "clear");
 		String txtLines = MAV.getViewName();
 		//
@@ -123,7 +124,7 @@ public class HistoryControllerTest {
 		String url = "http://localhost:" + localServerPort_RND + "/posted";
 		//
 		// MVM.add("history", history); // how to add ModelAttribute? RequestBody? HttpMessageConverter?
-		History history = History.getSample();
+		History history = new History();
 		MultiValueMap<String, Object> MVM = new LinkedMultiValueMap<>();
 		MVM.add("nav", "frwd");
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -138,17 +139,23 @@ public class HistoryControllerTest {
 			// responseEntity = restTemplate.postForObject(url, httpEntity, ResponseEntity.class);
 			responseEntity = restTemplate.postForEntity(url, httpEntity, String.class);
 		}
-		catch (HttpClientErrorException ex) { System.out.println("ERROR: " + ex.getMessage()); }
+		catch (NullPointerException | HttpClientErrorException |
+		       HttpServerErrorException.InternalServerError ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
 		//
-		String body = responseEntity.getBody();
-		String txtLines = Unix4j.fromString(body).grep("summary").toStringResult();
+		String txtLines = "";
+		if ( responseEntity == null ) { txtLines = "no responseEntity!"; } else {
+			String body = responseEntity.getBody();
+			txtLines = Unix4j.fromString(body).grep("summary").toStringResult();
+		}
 		System.out.println("txtLines: " + txtLines);
-		assertNotNull(responseEntity);
+		assertNotNull(txtLines);
 	}
 
 	@Test void test_traverse( ) {
 		//
-		History history = History.getSample();
+		History history = new History();
 		ModelAndView MAV = historyController.traverse(history, 0L);
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
 		history = (History) hashMap.get("history");
@@ -160,17 +167,17 @@ public class HistoryControllerTest {
 
 	@Test void test_saver( ) {
 
-		History historySample = History.getSample();
-		System.out.println("getEventmain(): " + historySample.getEventmain());
-		historySample.setEventmain(historySample.getEventmain() + " / " + Instant.now());
+		History history = new History();
+		System.out.println("getEventmain(): " + history.getEventmain());
+		history.setEventmain(history.getEventmain() + " / " + Instant.now());
 
 		ModelAndView MAV = new ModelAndView();
-		MAV.addObject("history", historySample);
+		MAV.addObject("history", history);
 		// MAV = historyController.saver(history);
 
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
-		History history = (History) hashMap.get("history");
-		String txtLines = "getEventmain(): " + history.getEventmain();
+		History historyFromMap = (History) hashMap.get("history");
+		String txtLines = "getEventmain(): " + historyFromMap.getEventmain();
 
 		System.out.println(txtLines);
 		assertNotNull(historyController);
@@ -178,7 +185,7 @@ public class HistoryControllerTest {
 
 	@Test void test_deleter( ) {
 		//
-		History history = History.getSample();
+		History history = new History();
 		System.out.println("showHistory(): " + history.showHistory());
 		history.setEventmain(history.getEventmain() + " / " + Instant.now());
 		//

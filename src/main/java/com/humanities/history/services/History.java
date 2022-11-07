@@ -31,13 +31,13 @@ public class History {
 
 	public String showHistory( ) {
 		//
-		String newDateBeg = "", newDateEnd = "";
-		if ( this.datebeg == null || this.datebeg.length() > 4 ) { }
+		String newDateBeg = "", newDateEnd = "", txtLine = "";
+		if ( this.datebeg == null || this.datebeg.length() > 4 ) { } else
 		{ newDateBeg = datebeg.substring(0, 4); }
-		if ( this.dateend == null || this.dateend.length() > 4 ) { }
+		if ( this.dateend == null || this.dateend.length() > 4 ) { } else
 		{ newDateEnd = dateend.substring(0, 4); }
 		//
-		String txtLine = this.id + " / "
+		txtLine = this.id + " / "
 			+ this.datebegpre + newDateBeg + " "
 			+ this.dateendpre + newDateEnd + " / "
 			+ this.locations + " / "
