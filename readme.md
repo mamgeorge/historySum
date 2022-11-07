@@ -1,11 +1,12 @@
 # History DB / 历史 [li4shi3]
 
-<img src = "/history.png" alt = "history" title = "history" width = "100">
+<img src = "src/main/resources/static/images/history.png" alt = "history" title = "history" style = "width: 400px; height: 250px;" />
 
 intent: build a flexible data entry DB
 
 ### features
-* uses independent MySQL RDBMS 
+* easy, global, comprehensive, reference, curated, organized
+* uses independent MySQL RDBMS
 * handles utf charsets in sql
 * uses global world history principles
 
@@ -14,13 +15,12 @@ intent: build a flexible data entry DB
 * error handling for entries, handle duplicates
 * update schema to load images
 * db file read (apolo, sum, history), db cap for retrieval
-* ---------
+* #######################
 * scrolling on different options?
 * read in csv (alternate entries); parse text files
 * terminal show utf8 characters? add graceful close?
 
 ### process
-
 * embedded H2 & JPA to start
 * embedded syntax is specialized to use multiline
 * uses std controller, repository, service,
@@ -29,7 +29,6 @@ intent: build a flexible data entry DB
 
 ---
 # sources
- 
 * cd c:\workspace\github\spring\history
 * \\5Personal\History\0304HistorySum.txt
 * see: \5Personal\History\icons
@@ -46,7 +45,6 @@ intent: build a flexible data entry DB
 * gradle bootrun
 
 # git commands
-
 * cd ..
 * git branch
 * git checkout develop 
@@ -64,6 +62,7 @@ intent: build a flexible data entry DB
   * git push origin master
 * git checkout develop
 
+---
 1964 -2064 | eramain | USA Ohio | Martin George | lived life, married a wife, had a son, blessed a ton, 历史 |
 geneology, SS card, BirthCertificate, Credit Card | a2000
 

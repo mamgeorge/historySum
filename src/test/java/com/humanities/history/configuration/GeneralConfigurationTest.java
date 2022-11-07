@@ -18,6 +18,11 @@ class GeneralConfigurationTest {
 	private static final String fileNameLoc = resourcePath + "inp_locales.txt";
 	private static final String EOL = "\n";
 
+	@Test void lombokParameters( ) {
+
+		GeneralConfiguration genConf = new GeneralConfiguration();
+	}
+
 	@Test void parseOptions_era( ) {
 
 		StringBuilder stringBuilder;

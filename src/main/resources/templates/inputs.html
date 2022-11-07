@@ -114,7 +114,14 @@ input.none		{ display: none;}
 
 <tr>
 	<td>tags</td>
-	<td><textarea name = "groupings" placeholder = "groupings"
+	<td>
+
+		<select th:field="*{groupings}" id = "groupings">
+			<option value="0">select option</option>
+			<option th:each="tags : ${groupings}" th:value="${tags}" th:text="${tags}"></option>
+		</select>
+
+		<textarea name = "groupings" placeholder = "groupings"
 		th:field = "*{groupings}"
 		title = "tagged information, comma separated" ></textarea>
 		</td>

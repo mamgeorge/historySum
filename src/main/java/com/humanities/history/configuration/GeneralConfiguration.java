@@ -1,5 +1,7 @@
 package com.humanities.history.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -20,6 +23,7 @@ import java.util.Map;
  */
 
 @Configuration
+@Getter @Setter
 public class GeneralConfiguration {
 
 	@Autowired private Environment environment;
@@ -32,10 +36,13 @@ public class GeneralConfiguration {
 	private static final String resourcePath = "src/main/resources/static/";
 	private static final String fileNameEra = resourcePath + "inp_eramain.txt";
 	private static final String fileNameLoc = resourcePath + "inp_locales.txt";
+	private static final String groupText = "none politics battles leaders language arts technology science "
+		+ "natural global apologetic";
 
 	private static final String EOL = "\n";
-	public Map<String, String> eramain = null;
-	public Map<String, String> locales = null;
+	public static Map<String, String> eramain = null;
+	public static Map<String, String> locales = null;
+	public static List<String> grouplist = Arrays.asList(groupText.split(" "));
 
 	public GeneralConfiguration( ) {
 
