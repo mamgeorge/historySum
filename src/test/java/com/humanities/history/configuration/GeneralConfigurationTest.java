@@ -27,8 +27,8 @@ class GeneralConfigurationTest {
 
 		String txtLines = "";
 		GeneralConfiguration genConf = new GeneralConfiguration();
-		Map<String, String> eramain = GeneralConfiguration.getEramain();
-		Map<String, String> locations = GeneralConfiguration.getLocales();
+		Map<String, String> eramain = GeneralConfiguration.getEralist();
+		Map<String, String> locations = GeneralConfiguration.getLocalelist();
 		List<String> grouplist = GeneralConfiguration.getTaglist();
 
 		txtLines += eramain +EOL;
