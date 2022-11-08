@@ -1,5 +1,6 @@
 package com.humanities.history.configuration;
 
+import com.humanities.history.controller.HistoryController;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,10 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GeneralConfigurationTest {
+
+	private static final Logger LOGGER = Logger.getLogger(GeneralConfigurationTest.class.getName());
 
 	private static final String resourcePath = "src/main/resources/static/";
 	private static final String fileNameEra = resourcePath + "inp_eramain.txt";
@@ -25,7 +29,7 @@ class GeneralConfigurationTest {
 		GeneralConfiguration genConf = new GeneralConfiguration();
 		Map<String, String> eramain = GeneralConfiguration.getEramain();
 		Map<String, String> locations = GeneralConfiguration.getLocales();
-		List<String> grouplist = GeneralConfiguration.getGrouplist();
+		List<String> grouplist = GeneralConfiguration.getTaglist();
 
 		txtLines += eramain +EOL;
 		txtLines += locations +EOL;

@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /*
 	This attempt to enforce a StandardCharsets in the ThymeleafViewResolver did not work.
@@ -26,6 +27,7 @@ import java.util.Map;
 @Getter @Setter
 public class GeneralConfiguration {
 
+	private static final Logger LOGGER = Logger.getLogger(GeneralConfiguration.class.getName());
 	@Autowired private Environment environment;
 	@Autowired private ServletContext servletContext;
 
@@ -42,11 +44,11 @@ public class GeneralConfiguration {
 	private static final String EOL = "\n";
 	@Getter private static Map<String, String> eramain = null; // lombok requires @Getter here to use statics
 	@Getter private static Map<String, String> locales = null;
-	@Getter private static List<String> grouplist = Arrays.asList(GROUP_TEXT.split(" "));
+	@Getter private static List<String> taglist = Arrays.asList(GROUP_TEXT.split(" "));
 
 	public GeneralConfiguration( ) {
 
-		System.out.println("#### init ####: ");
+		LOGGER.info("#### init ####: ");
 		try {
 			String txtLinesEra = new String(Files.readAllBytes(Paths.get(FILENAME_ERA)));
 			eramain = parseOptions(txtLinesEra);
@@ -54,7 +56,7 @@ public class GeneralConfiguration {
 			String txtLinesLoc = new String(Files.readAllBytes(Paths.get(FILENAME_LOC)));
 			locales = parseOptions(txtLinesLoc);
 		}
-		catch (IOException ex) { System.out.println("ERROR: " + ex.getMessage()); }
+		catch (IOException ex) { LOGGER.info("ERROR: " + ex.getMessage()); }
 	}
 
 	public static Map<String, String> parseOptions(String txt) {

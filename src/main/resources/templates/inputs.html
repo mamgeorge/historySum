@@ -73,9 +73,9 @@ input.none		{ display: none;}
 
 		<br />
 		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
-		<select th:field="*{locations}" id = "locations">
+		<select th:field="*{locales}" id = "locales">
 		    <option value="0">select option</option>
-    		<option th:each="loc : ${locations}" th:value="${loc.key}" th:text="${loc.value}"></option>
+    		<option th:each="loc : ${locales}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
 		</span>
 	</tr><!-- era, geo -->
@@ -116,13 +116,13 @@ input.none		{ display: none;}
 	<td>tags</td>
 	<td>
 
-		<select th:field="*{groupings}" id = "groupings">
+		<select th:field="*{taglist}" id = "taglist">
 			<option value="0">select option</option>
-			<option th:each="tags : ${groupings}" th:value="${tags}" th:text="${tags}"></option>
+			<option th:each="tags : ${taglist}" th:value="${tags}" th:text="${tags}"></option>
 		</select>
 
-		<textarea name = "groupings" placeholder = "groupings"
-		th:field = "*{groupings}"
+		<textarea name = "tags" placeholder = "tags"
+		th:field = "*{tags}"
 		title = "tagged information, comma separated" ></textarea>
 		</td>
 	</tr><!-- tags -->

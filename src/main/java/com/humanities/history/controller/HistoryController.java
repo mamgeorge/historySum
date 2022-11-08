@@ -38,23 +38,23 @@ public class HistoryController {
 
 		LOGGER.info("showListing()");
 		List<History> histories = historyService.findAll();
-		System.out.println("histories: " + histories.size());
+		LOGGER.info("histories: " + histories.size());
 		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
 		//
 		HashMap<String, List<History>> hashMap = new HashMap<>();
 		hashMap.put("histories", histories);
-		histories.forEach(hst -> System.out.println(hst.showHistory()));
+		StringBuilder stringBuilder = new StringBuilder();
+		histories.forEach(hst -> stringBuilder.append(hst.showHistory()+EOL));
+		LOGGER.info(stringBuilder.toString());
 		//
-		ModelAndView MAV = new ModelAndView("listing", hashMap);
-		return MAV;
+		return new ModelAndView("listing", hashMap);
 	}
 
 	@GetMapping( "/showInputs" ) public ModelAndView showInputs( ) {
 
 		LOGGER.info("showInputs()");
 		History history = new History();
-		ModelAndView MAV = getHistoryMAV(history);
-		return MAV;
+		return  getHistoryMAV(history);
 	}
 
 	@GetMapping( "/showInputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
@@ -73,54 +73,52 @@ public class HistoryController {
 		catch (NoSuchElementException ex) {
 			LOGGER.severe(ex.getMessage());
 		}
-		ModelAndView MAV = getHistoryMAV(history);
-		return MAV;
+		return getHistoryMAV(history);
 	}
 
 	@PostMapping( "/posted" ) // ModelAttribute or RequestBody?
 	public ModelAndView posted(@ModelAttribute History history, @RequestParam( "nav" ) String nav) {
 
 		LOGGER.info("posted(history, nav)");
-		ModelAndView MAV = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView();
 		if ( history == null || history.getId() == null ) {
 			history = new History();
 			String msg = "WARNING! HISTORY OBJECT WAS EMPTY!";
-			System.out.println(
-				EOL + "#".repeat(msg.length()) + EOL + msg + EOL + "#".repeat(msg.length()) + EOL);
+			LOGGER.info(EOL + "#".repeat(msg.length()) + EOL + msg + EOL + "#".repeat(msg.length()) + EOL);
 		}
 		Long longId = history.getId();
 		if ( nav != null && nav.equals("back") ) {
 			--longId;
-			MAV = traverse(history, longId);
+			modelAndView = traverse(history, longId);
 		}
 		if ( nav != null && nav.equals("frwd") ) {
 			++longId;
-			MAV = traverse(history, longId);
+			modelAndView = traverse(history, longId);
 		}
-		if ( nav != null && nav.equals("list") ) { MAV = showListing(); }
-		if ( nav != null && nav.equals("clear") ) { MAV = showInputs(); }
-		if ( nav != null && nav.equals("save") ) { MAV = saver(history); }
-		if ( nav != null && nav.equals("delete") ) { MAV = deleter(history); }
+		if ( nav != null && nav.equals("list") ) { modelAndView = showListing(); }
+		if ( nav != null && nav.equals("clear") ) { modelAndView = showInputs(); }
+		if ( nav != null && nav.equals("save") ) { modelAndView = saver(history); }
+		if ( nav != null && nav.equals("delete") ) { modelAndView = deleter(history); }
 		//
-		return MAV;
+		return modelAndView;
 	}
 
 	@PostMapping( "/traverse" ) public ModelAndView traverse(@ModelAttribute History history, Long longId) {
 
 		LOGGER.info("traverse(history, longId)");
-		if ( longId == null || longId < 1 ) { } else {
+		if ( longId == null || longId < 1 ) { LOGGER.info(""); } else {
 			try { history = historyService.findById(longId); }
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
 			}
 		}
-		System.out.println("history: " + history.showHistory());
+		LOGGER.info("history: " + history.showHistory());
 		//
-		ModelAndView MAV = new ModelAndView();
-		MAV.setViewName("inputs");
-		MAV.addObject("history", history);
-		MAV.addObject("historySum", history.showHistory());
-		return MAV;
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inputs");
+		modelAndView.addObject("history", history);
+		modelAndView.addObject("historySum", history.showHistory());
+		return modelAndView;
 	}
 
 	@PostMapping( "/saver" ) public ModelAndView saver(@ModelAttribute History history) {
@@ -131,31 +129,29 @@ public class HistoryController {
 		Long longId = history.getId();
 		if ( longId == null || longId <= 1 ) { history = new History(); } else {
 			try {
-			//	history = historyService.save(history);
+			//	history historyService save(history)
 			}
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
 			}
 		}
-		System.out.println("history: " + history.showHistory());
+		LOGGER.info("history: " + history.showHistory());
 		//
-		ModelAndView MAV = new ModelAndView();
-		MAV.setViewName("inputs");
-		MAV.addObject("history", history);
-		MAV.addObject("historySum", history.showHistory());
-		return MAV;
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inputs");
+		modelAndView.addObject("history", history);
+		modelAndView.addObject("historySum", history.showHistory());
+		return modelAndView;
 	}
 
 	@PostMapping( "/delete" ) public ModelAndView deleter(@ModelAttribute History history) {
 		//
-		LOGGER.info("deleter(history)");
-		System.out.println("deleting: " + history.showHistory());
+		LOGGER.info("deleter(history): " + history.showHistory());
 		try {
-			//	historyService.delete(history);
+			// historyService delete(history)
 		}
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
-		ModelAndView MAV = showInputs();
-		return MAV;
+		return  showInputs();
 	}
 
 	//#### extras
@@ -166,7 +162,7 @@ public class HistoryController {
 	}
 
 	@GetMapping( "/errors" ) public void errors( ) {
-		// throw new Exception("Exception!");
+
 		LOGGER.info("errors()");
 		throw new RuntimeException("RuntimeException!");
 	}
@@ -174,17 +170,17 @@ public class HistoryController {
 	//#### STATICS ####
 	private ModelAndView getHistoryMAV(History history) {
 
-		ModelAndView MAV = new ModelAndView();
-		MAV.setViewName("inputs");
-		MAV.addObject("history", history);
-		MAV.addObject("historySum", history.showHistory());
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("inputs");
+		modelAndView.addObject("history", history);
+		modelAndView.addObject("historySum", history.showHistory());
 
-		MAV.addObject("genConfig",genConfig);
-		MAV.addObject("eramain", genConfig.getEramain());
-		MAV.addObject("locations", genConfig.getLocales());
-		MAV.addObject("groupings", genConfig.getGrouplist());
+		modelAndView.addObject("genConfig",genConfig);
+		modelAndView.addObject("eramain", GeneralConfiguration.getEramain());
+		modelAndView.addObject("locales", GeneralConfiguration.getLocales());
+		modelAndView.addObject("taglist", GeneralConfiguration.getTaglist());
 
-		System.out.println("history: " + history.showHistory());
-		return MAV;
+		LOGGER.info("history: " + history.showHistory());
+		return modelAndView;
 	}
 }
