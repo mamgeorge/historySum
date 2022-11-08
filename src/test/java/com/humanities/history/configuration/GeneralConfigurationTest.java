@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,7 +21,18 @@ class GeneralConfigurationTest {
 
 	@Test void lombokParameters( ) {
 
+		String txtLines = "";
 		GeneralConfiguration genConf = new GeneralConfiguration();
+		Map<String, String> eramain = GeneralConfiguration.getEramain();
+		Map<String, String> locations = GeneralConfiguration.getLocales();
+		List<String> grouplist = GeneralConfiguration.getGrouplist();
+
+		txtLines += eramain +EOL;
+		txtLines += locations +EOL;
+		txtLines += grouplist +EOL;
+
+		System.out.println(txtLines);
+		assertNotNull(txtLines);
 	}
 
 	@Test void parseOptions_era( ) {
@@ -32,7 +44,7 @@ class GeneralConfigurationTest {
 		assertNotNull(stringBuilder);
 
 		stringBuilder = parseOptions(fileNameLoc);
-		System.out.println("fileNameLoc: " + +stringBuilder.toString().split(EOL).length);
+		System.out.println("fileNameLoc: " + stringBuilder.toString().split(EOL).length );
 		assertNotNull(stringBuilder);
 	}
 

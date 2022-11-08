@@ -26,7 +26,7 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 	<th>reference/group</th>
 	</tr>
 
-<tr th:each = "history: ${histories}" th:onclick = "|location.href='/inputs/${history.id}'|" >
+<tr th:each = "history: ${histories}" th:onclick = "|location.href='/showInputs/${history.id}'|" >
 
 	<!--td><span id = "id" th:text = "${#numbers.formatInteger(history.id,7)}"/></td-->
 	<td>

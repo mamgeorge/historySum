@@ -24,7 +24,6 @@ public class HistoryController {
 	@Autowired private GeneralConfiguration genConfig;
 
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
-	private static final String RETURN = "<br /><a href = '/' >return</a>";
 	private static final String EOL = "\n";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
@@ -32,9 +31,7 @@ public class HistoryController {
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
 		LOGGER.info("home()");
-		System.out.println("home");
-		ModelAndView MAV = new ModelAndView("home", new HashMap<>());
-		return MAV;
+		return new ModelAndView("home", new HashMap<>());
 	}
 
 	@GetMapping( "/listing" ) public ModelAndView showListing( ) {
@@ -60,10 +57,9 @@ public class HistoryController {
 		return MAV;
 	}
 
-	@GetMapping( "/inputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
+	@GetMapping( "/showInputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
 
-		LOGGER.info("showInputs(id)");
-		System.out.println("inputs: [" + id + "]");
+		LOGGER.info("showInputs(" + id + ")");
 		long longId;
 		try { longId = Long.parseLong(id); }
 		catch (Exception ex) {
@@ -112,7 +108,7 @@ public class HistoryController {
 	@PostMapping( "/traverse" ) public ModelAndView traverse(@ModelAttribute History history, Long longId) {
 
 		LOGGER.info("traverse(history, longId)");
-		if ( longId == null || longId <= 1 ) { } else {
+		if ( longId == null || longId < 1 ) { } else {
 			try { history = historyService.findById(longId); }
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
@@ -183,9 +179,10 @@ public class HistoryController {
 		MAV.addObject("history", history);
 		MAV.addObject("historySum", history.showHistory());
 
-		MAV.addObject("eramain", genConfig.eramain);
-		MAV.addObject("locations", genConfig.locales);
-		MAV.addObject("groupings", genConfig.grouplist);
+		MAV.addObject("genConfig",genConfig);
+		MAV.addObject("eramain", genConfig.getEramain());
+		MAV.addObject("locations", genConfig.getLocales());
+		MAV.addObject("groupings", genConfig.getGrouplist());
 
 		System.out.println("history: " + history.showHistory());
 		return MAV;
