@@ -42,8 +42,8 @@ public class GeneralConfiguration {
 		+ "natural global apologetic";
 
 	private static final String EOL = "\n";
-	@Getter private static Map<String, String> eramain = null; // lombok requires @Getter here to use statics
-	@Getter private static Map<String, String> locales = null;
+	@Getter private static Map<String, String> eralist = null; // lombok requires @Getter here to use statics
+	@Getter private static Map<String, String> localelist = null;
 	@Getter private static List<String> taglist = Arrays.asList(GROUP_TEXT.split(" "));
 
 	public GeneralConfiguration( ) {
@@ -51,10 +51,10 @@ public class GeneralConfiguration {
 		LOGGER.info("#### init ####: ");
 		try {
 			String txtLinesEra = new String(Files.readAllBytes(Paths.get(FILENAME_ERA)));
-			eramain = parseOptions(txtLinesEra);
+			eralist = parseOptions(txtLinesEra);
 
 			String txtLinesLoc = new String(Files.readAllBytes(Paths.get(FILENAME_LOC)));
-			locales = parseOptions(txtLinesLoc);
+			localelist = parseOptions(txtLinesLoc);
 		}
 		catch (IOException ex) { LOGGER.info("ERROR: " + ex.getMessage()); }
 	}

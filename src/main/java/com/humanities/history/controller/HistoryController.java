@@ -113,12 +113,8 @@ public class HistoryController {
 			}
 		}
 		LOGGER.info("history: " + history.showHistory());
-		//
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("inputs");
-		modelAndView.addObject("history", history);
-		modelAndView.addObject("historySum", history.showHistory());
-		return modelAndView;
+
+		return getHistoryMAV(history);
 	}
 
 	@PostMapping( "/saver" ) public ModelAndView saver(@ModelAttribute History history) {
@@ -175,10 +171,10 @@ public class HistoryController {
 		modelAndView.addObject("history", history);
 		modelAndView.addObject("historySum", history.showHistory());
 
-		modelAndView.addObject("genConfig",genConfig);
-		modelAndView.addObject("eramain", GeneralConfiguration.getEramain());
-		modelAndView.addObject("locales", GeneralConfiguration.getLocales());
-		modelAndView.addObject("taglist", GeneralConfiguration.getTaglist());
+		modelAndView.addObject("genConfig", genConfig);
+		modelAndView.addObject("eralist", genConfig.getEralist());
+		modelAndView.addObject("localelist", genConfig.getLocalelist());
+		modelAndView.addObject("taglist", genConfig.getTaglist());
 
 		LOGGER.info("history: " + history.showHistory());
 		return modelAndView;

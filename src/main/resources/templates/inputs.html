@@ -65,28 +65,28 @@ input.none		{ display: none;}
 		-->
 	<td>era<br />geo</td>
 	<td><span style = "white-space: nowrap; text-align: right;" title = "high level timeframe era" >
-		<select th:field="*{eramain}" id = "eramain">
+		<select th:field="*{eralist}" id = "eralist">
 		    <option value="0">select option</option>
-    		<option th:each="era : ${eramain}" th:value="${era.key}" th:text="${era.value}"></option>
+    		<option th:each="era : ${eralist}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
 		</span>
-
-		<br />
-		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
-		<select th:field="*{locales}" id = "locales">
-		    <option value="0">select option</option>
-    		<option th:each="loc : ${locales}" th:value="${loc.key}" th:text="${loc.value}"></option>
-			</select>
-		</span>
-	</tr><!-- era, geo -->
+	</tr><!-- era -->
 
 <tr>
 	<td>loc</td>
-	<td><textarea name = "locations" placeholder = "locations"
-		th:field = "*{locations}"
-		title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity" ></textarea>
+	<td>
+		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
+		<select th:field="*{localelist}" id = "localelist">
+		    <option value="0">select option</option>
+    		<option th:each="loc : ${localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
+			</select>
+		</span>
+
+		<textarea name = "locales" placeholder = "locales"
+			th:field = "*{locales}"
+			title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity" ></textarea>
 		</td>
-	</tr><!-- loc -->
+	</tr><!-- geo, loc -->
 
 <tr>
 	<td>who</td>

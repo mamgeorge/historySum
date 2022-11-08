@@ -23,9 +23,10 @@ public class History {
 	private String datebeg;     // '0004-00-00-00.00.00'
 	private String dateendpre;  // '+'
 	private String dateend;     // '0029-04-01-00.00.00'
+	private String eralist;     // <list>
 	private String eramain;     // 'Roman Empire'
-	private String locales;     // <list>
-	private String locations;   // 'Israel , Jerusalem'
+	private String localelist;  // <list>
+	private String locales;     // 'Israel , Jerusalem'
 	private String personname;  // 'Jesus Christ'
 	private String eventmain;   // 'birth , ministry , death , resurrection'
 	private String referenced;  // 'Josephus, MaraBarSerapion, Phlegon, Thallus'
@@ -46,7 +47,7 @@ public class History {
 		txtLine = this.id + " / "
 			+ this.datebegpre + newDateBeg + " "
 			+ this.dateendpre + newDateEnd + " / "
-			+ this.locations + " / "
+			+ this.locales + " / "
 			+ this.personname + " / "
 			+ this.eventmain + "";
 		return txtLine;
