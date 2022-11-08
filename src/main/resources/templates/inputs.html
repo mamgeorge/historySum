@@ -8,6 +8,15 @@ input.inputs	{ width: 350px; font-size: 10pt; }
 input.none		{ display: none;}
 </style>
 <script type = "text/javascript" th:src = "@{/basics.js}"></script>
+<script type = "text/javascript" >
+
+function add2Field( selector, fieldval ) {
+
+	var selected = document.getElementById(selector);
+	var selectedVal = selected.options[ selected.selectedIndex ].text;
+	document.getElementById(fieldval).value = selectedVal;
+}
+</script>
 </head>
 
 <body><br /><h3>History Inputs</h3><br/>
@@ -63,30 +72,31 @@ input.none		{ display: none;}
 		https://stackoverflow.com/questions/55199184/how-to-select-object-from-thymeleaf-form
 		https://stackoverflow.com/questions/26181188/how-to-map-hashmap-keys-to-a-select-in-thymeleaf
 		-->
-	<td>era<br />geo</td>
-	<td><span style = "white-space: nowrap; text-align: right;" title = "high level timeframe era" >
-		<select th:field="*{eralist}" id = "eralist">
-		    <option value="0">select option</option>
-    		<option th:each="era : ${eralist}" th:value="${era.key}" th:text="${era.value}"></option>
+	<td>lst<br />era</td>
+	<td>
+		<select th:field="*{eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
+			<option value="0">select option</option>
+			<option th:each="era : ${eralist}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
-		</span>
-	</tr><!-- era -->
+		<br />
+		<textarea name = "eramain" placeholder = "eramain"
+			th:field = "*{eramain}"
+			title = "high level timeframe era selection" ></textarea>
+	</tr><!-- lst, era -->
 
 <tr>
-	<td>loc</td>
+	<td>lst<br />loc</td>
 	<td>
-		<span style = "white-space: nowrap; text-align: right;" title = "high level geographical location">
-		<select th:field="*{localelist}" id = "localelist">
-		    <option value="0">select option</option>
-    		<option th:each="loc : ${localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
+		<select th:field="*{localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
+			<option value="0">select option</option>
+			<option th:each="loc : ${localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
-		</span>
-
+		<br />
 		<textarea name = "locales" placeholder = "locales"
 			th:field = "*{locales}"
 			title = "ideally: modernCountry, modernCity; ancientCountry, ancientCity" ></textarea>
 		</td>
-	</tr><!-- geo, loc -->
+	</tr><!-- lst, loc -->
 
 <tr>
 	<td>who</td>
@@ -113,19 +123,18 @@ input.none		{ display: none;}
 	</tr><!-- refs -->
 
 <tr>
-	<td>tags</td>
+	<td>lst<br />tags</td>
 	<td>
-
-		<select th:field="*{taglist}" id = "taglist">
+		<select th:field="*{taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
 			<option value="0">select option</option>
 			<option th:each="tags : ${taglist}" th:value="${tags}" th:text="${tags}"></option>
 		</select>
-
+		<br />
 		<textarea name = "tags" placeholder = "tags"
 		th:field = "*{tags}"
 		title = "tagged information, comma separated" ></textarea>
 		</td>
-	</tr><!-- tags -->
+	</tr><!-- lst, tags -->
 
 <input class = "none" type = "number" th:field="*{id}" placeholder = "id" title = "id" />
 </table>
