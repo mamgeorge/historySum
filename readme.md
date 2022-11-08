@@ -24,7 +24,7 @@ intent: build a flexible data entry DB
 * embedded H2 & JPA to start
 * embedded syntax is specialized to use multiline
 * uses std controller, repository, service,
-* uses springBoot eb, mysql, thymeleaf, lombok, JUnit5
+* uses springBoot eb, MySQL, thymeleaf, lombok, JUnit5
 * thymeleaf includes images, loops
 
 ---

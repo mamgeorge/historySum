@@ -23,14 +23,11 @@ public class History {
 	private String datebeg;     // '0004-00-00-00.00.00'
 	private String dateendpre;  // '+'
 	private String dateend;     // '0029-04-01-00.00.00'
-	private String eralist;     // <list>
 	private String eramain;     // 'Roman Empire'
-	private String localelist;  // <list>
 	private String locales;     // 'Israel , Jerusalem'
 	private String personname;  // 'Jesus Christ'
 	private String eventmain;   // 'birth , ministry , death , resurrection'
 	private String referenced;  // 'Josephus, MaraBarSerapion, Phlegon, Thallus'
-	private String taglist;     // <list>
 	private String tags;        // 'h0000'
 	private String mediaicopath;// '_0000_H_Nazareth_JesusCross'
 

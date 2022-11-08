@@ -74,7 +74,7 @@ function add2Field( selector, fieldval ) {
 		-->
 	<td>lst<br />era</td>
 	<td>
-		<select th:field="*{eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
+		<select th:field="${eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
 			<option value="0">select option</option>
 			<option th:each="era : ${eralist}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
@@ -87,7 +87,7 @@ function add2Field( selector, fieldval ) {
 <tr>
 	<td>lst<br />loc</td>
 	<td>
-		<select th:field="*{localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
+		<select th:field="${localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
 			<option value="0">select option</option>
 			<option th:each="loc : ${localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
@@ -125,7 +125,7 @@ function add2Field( selector, fieldval ) {
 <tr>
 	<td>lst<br />tags</td>
 	<td>
-		<select th:field="*{taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
+		<select th:field="${taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
 			<option value="0">select option</option>
 			<option th:each="tags : ${taglist}" th:value="${tags}" th:text="${tags}"></option>
 		</select>
