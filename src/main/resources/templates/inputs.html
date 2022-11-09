@@ -16,12 +16,22 @@ function add2Field( selector, fieldval ) {
 	var selectedVal = selected.options[ selected.selectedIndex ].text;
 	document.getElementById(fieldval).value = selectedVal;
 }
+
+function checkSubmit() {
+
+	// form.querySelectorAll("input:checked")
+	// form.querySelectorAll('input[type="checkbox"]:checked, input[type="radio"]:checked');
+	var form = document.getElementById("inputHistory");
+	var btnVal = form.querySelectorAll('input[type="submit"]:not([value=""])');
+	var selVal = btnVal.value; // forEach(el=>el.click());
+}
 </script>
 </head>
 
 <body><br /><h3>History Inputs</h3><br/>
 
-<form th:action = "@{/posted}" th:object = "${history}" method = "post">
+<form th:action = "@{/posted}" th:object = "${history}" method = "post"
+	onsubmit = "return checkSubmit()" name = "inputHistory" id = "inputHistory" >
 <br/><span th:insert = "toolbar.html" ></span>
 <br/><br/>
 
