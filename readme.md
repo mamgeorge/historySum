@@ -3,6 +3,7 @@
 <img src = "src/main/resources/static/images/history.png" alt = "history" title = "history" style = "width: 400px; height: 250px;" />
 
 intent: build a flexible data entry DB
+test in http://localhost:8080
 
 ### features
 * easy, global, comprehensive, reference, curated, organized
@@ -11,14 +12,11 @@ intent: build a flexible data entry DB
 * uses global world history principles
 
 ### todos
-* update era boundaries, tags
-* error handling for entries, handle duplicates
-* update schema to load images
-* db file read (apolo, sum, history), db cap for retrieval
+* inputs security layer for addition, error handling, duplicates handling 
+* listing selections of time, components range
+* db cap for retrieval
 * #######################
-* scrolling on different options?
-* read in csv (alternate entries); parse text files
-* terminal show utf8 characters? add graceful close?
+* csv read/export (alternate entries); parse text files
 
 ### process
 * embedded H2 & JPA to start
@@ -32,7 +30,7 @@ intent: build a flexible data entry DB
 * cd c:\workspace\github\spring\history
 * \\5Personal\History\0304HistorySum.txt
 * see: \5Personal\History\icons
-* http://localhost:8080/
+* http://localhost:8080
 
 # maven commands
 * mvn clean install

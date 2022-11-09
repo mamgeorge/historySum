@@ -1,7 +1,7 @@
 package com.humanities.history.controller;
 
 import com.humanities.history.configuration.GeneralConfiguration;
-import com.humanities.history.services.History;
+import com.humanities.history.model.History;
 import com.humanities.history.services.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

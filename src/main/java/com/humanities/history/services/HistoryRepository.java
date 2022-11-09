@@ -1,5 +1,6 @@
 package com.humanities.history.services;
 
+import com.humanities.history.model.History;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -6,11 +6,37 @@
 table.list { width: 640px; }
 img.list { width: 50px; height: 50px; }
 div.list { display: inline-block; height: 500px; overflow: auto; }
+.inp { width: 80px; text-align: left; padding: 0px; margin: 0px;
+	border: black solid 1px; border-radius: 4px; font-size: 14pt; }
+.tny { font-size: 8pt; text-align: center; border: 0px; }
+.trn { background: rgba(0,0,0,.0); padding: 0px; margin: 0px; }
 </style>
 </head>
 
-<body><br /><h3>History Listing</h3><br/>
+<body><br /><a href = "/"><h3>History Listing</h3></a><br/>
 <form th:action = "@{/posted}" th:object = "${history}" method = "post"></form>
+<br/>
+<table>
+<tr style = "background-color: transparent;" >
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "datebeg"		/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "dateend"		/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "eramain"		/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "locales"		/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "personname"	/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "eventmain"		/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "references"	/></td>
+	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "tags"			/></td>
+</tr><tr style = "background-color: transparent;" >
+	<td class = "trn tny">datebeg		</td>
+	<td class = "trn tny">dateend		</td>
+	<td class = "trn tny">eramain		</td>
+	<td class = "trn tny">locales		</td>
+	<td class = "trn tny">personname	</td>
+	<td class = "trn tny">eventmain		</td>
+	<td class = "trn tny">references	</td>
+	<td class = "trn tny">tags			</td>
+</tr>
+</table>
 
 <br/>
 <div class = "list">
@@ -40,7 +66,7 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 		</td>
 
 <td><span id = "eramain" th:text = "${history.eramain}" ></span> /<br/>
-	<span id = "locations" th:text = "${history.locales}" ></span>
+	<span id = "locales" th:text = "${history.locales}" ></span>
 	</td>
 
 <td><span id = "personname" th:text = "${history.personname}" ></span>

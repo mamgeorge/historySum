@@ -1,5 +1,6 @@
 package com.humanities.history.services;
 
+import com.humanities.history.model.History;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.humanities.history.services;
+package com.humanities.history.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

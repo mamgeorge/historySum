@@ -1,6 +1,6 @@
 package com.humanities.history;
 
-import com.humanities.history.services.History;
+import com.humanities.history.model.History;
 import com.humanities.history.services.IHistoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

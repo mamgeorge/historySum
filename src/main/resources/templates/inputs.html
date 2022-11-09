@@ -6,6 +6,8 @@
 img.inputs		{ width: 400px; height: 400px; border-radius: 8px; }
 input.inputs	{ width: 350px; font-size: 10pt; }
 input.none		{ display: none;}
+.btn { width: 70px; text-align: center; background: #e0e0e0; padding: 4px;
+	border: black solid 1px; border-radius: 4px; font-size: 14pt; font-weight: bold; }
 </style>
 <script type = "text/javascript" th:src = "@{/basics.js}"></script>
 <script type = "text/javascript" >
@@ -28,11 +30,17 @@ function checkSubmit() {
 </script>
 </head>
 
-<body><br /><h3>History Inputs</h3><br/>
+<body><br /><a href = "/"><h3>History Inputs</h3></a><br/>
 
 <form th:action = "@{/posted}" th:object = "${history}" method = "post"
 	onsubmit = "return checkSubmit()" name = "inputHistory" id = "inputHistory" >
-<br/><span th:insert = "toolbar.html" ></span>
+<br/>
+	<input class = "btn" type = "submit" name = "nav" value = "back"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "list"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "delete"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "save"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "clear"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "frwd"	/>
 <br/><br/>
 
 <table style = "width:400px;" >

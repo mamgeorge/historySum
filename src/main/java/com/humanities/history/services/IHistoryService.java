@@ -1,5 +1,7 @@
 package com.humanities.history.services;
 
+import com.humanities.history.model.History;
+
 import java.util.List;
 
 public interface IHistoryService {

@@ -1,7 +1,7 @@
 package com.humanities.history.configuration;
 
 import com.humanities.history.controller.HistoryController;
-import com.humanities.history.services.History;
+import com.humanities.history.model.History;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
