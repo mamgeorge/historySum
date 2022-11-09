@@ -10,10 +10,9 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 </head>
 
 <body><br /><h3>History Listing</h3><br/>
-<form th:action = "@{/posted}" th:object = "${history}" method = "post">
-	<br/><span th:insert = "toolbar.html" ></span></form>
+<form th:action = "@{/posted}" th:object = "${history}" method = "post"></form>
 
-<br/><br/>
+<br/>
 <div class = "list">
 <table class = "list">
 <tr>
