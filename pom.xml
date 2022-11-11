@@ -77,6 +77,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
 
+		<dependency><!-- LocalServerPort -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+		</dependency>
+
 </dependencies>
 	
 	<build>

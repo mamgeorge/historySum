@@ -13,7 +13,7 @@ import java.util.Optional;
 
 	@Override public History findById(Long id) {
 		//
-		History history = null;
+		History history;
 		if ( id == null || id.equals(0L) ) { history = new History(); } else {
 			Optional<History> optional = historyRepository.findById(id);
 			history = optional.get();

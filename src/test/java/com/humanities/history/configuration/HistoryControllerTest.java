@@ -2,12 +2,11 @@ package com.humanities.history.configuration;
 
 import com.humanities.history.controller.HistoryController;
 import com.humanities.history.model.History;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
-import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
 
 @SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT )
 @TestInstance( TestInstance.Lifecycle.PER_CLASS )
@@ -40,8 +38,6 @@ public class HistoryControllerTest {
 
 	@LocalServerPort int localServerPort_RND;
 	private static final String FRMT = "\t%-5s %s\n";
-
-	@BeforeAll void setup( ) { }
 
 	@Test void test_home( ) {
 		//
@@ -60,17 +56,17 @@ public class HistoryControllerTest {
 
 	@Test void test_showListing( ) {
 		//
-		String txtLines = "";
+		StringBuilder stringBuilder = new StringBuilder();
 		//
 		ModelAndView MAV = historyController.showListing();
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
 		List<History> histories = (List<History>) hashMap.get("histories");
 		AtomicInteger ai = new AtomicInteger();
 		for ( History history : histories ) {
-			txtLines += String.format(FRMT, ai.incrementAndGet(), history.getPersonname());
+			stringBuilder.append(String.format(FRMT, ai.incrementAndGet(), history.getPersonname()));
 		}
 		//
-		System.out.println(txtLines);
+		System.out.println(stringBuilder);
 		assertNotNull(historyController);
 	}
 
@@ -81,9 +77,7 @@ public class HistoryControllerTest {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> responseEntity = null;
 		//
-		// headers not needed for this call; included to show relationship to POST call
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add(CONTENT_TYPE, TEXT_HTML_VALUE);
+		// headers not needed for this call
 		HttpEntity<String> httpEntity = new HttpEntity<>("test");
 		try {
 			responseEntity = restTemplate.exchange(url, GET, httpEntity, String.class);
@@ -130,13 +124,10 @@ public class HistoryControllerTest {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE);
 		//
-		// HttpEntity<History> httpEntity = new HttpEntity<>(history, httpHeaders);
 		HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(MVM, httpHeaders);
 		ResponseEntity<String> responseEntity = null;
 		RestTemplate restTemplate = new RestTemplate();
 		try {
-			// responseEntity = restTemplate.exchange(url, POST, httpEntity, String.class);
-			// responseEntity = restTemplate.postForObject(url, httpEntity, ResponseEntity.class);
 			responseEntity = restTemplate.postForEntity(url, httpEntity, String.class);
 		}
 		catch (NullPointerException | HttpClientErrorException |
@@ -144,7 +135,7 @@ public class HistoryControllerTest {
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 		//
-		String txtLines = "";
+		String txtLines;
 		if ( responseEntity == null ) { txtLines = "no responseEntity!"; } else {
 			String body = responseEntity.getBody();
 			txtLines = Unix4j.fromString(body).grep("summary").toStringResult();

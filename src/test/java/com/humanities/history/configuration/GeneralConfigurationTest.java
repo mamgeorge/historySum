@@ -1,6 +1,5 @@
 package com.humanities.history.configuration;
 
-import com.humanities.history.controller.HistoryController;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -26,7 +25,6 @@ class GeneralConfigurationTest {
 	@Test void lombokParameters( ) {
 
 		String txtLines = "";
-		GeneralConfiguration genConf = new GeneralConfiguration();
 		Map<String, String> eramain = GeneralConfiguration.getEralist();
 		Map<String, String> locations = GeneralConfiguration.getLocalelist();
 		List<String> grouplist = GeneralConfiguration.getTaglist();

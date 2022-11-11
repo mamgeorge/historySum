@@ -42,8 +42,7 @@ import static org.springframework.http.HttpHeaders.USER_AGENT;
 			The Terminal is obviously able to handle the characters.
 			However, using the charset_name property alters the encoding available to the terminal.
 		*/
-		String txtLines = ENCODED;
-		System.out.println(txtLines);
+		System.out.println(ENCODED);
 		assertNotNull(ENCODED);
 	}
 
@@ -82,6 +81,7 @@ import static org.springframework.http.HttpHeaders.USER_AGENT;
 		//
 		String keyValue = environment.getProperty("CORE_SOURCE");
 		System.out.println("keyValue: " + keyValue);
+		assert keyValue != null;
 		assertTrue(keyValue.contains("George"));
 	}
 

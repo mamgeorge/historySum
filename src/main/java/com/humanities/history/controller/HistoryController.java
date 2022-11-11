@@ -27,6 +27,7 @@ public class HistoryController {
 	private static final String EOL = "\n";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
+	private static final boolean AUTHORITY = false;
 
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
@@ -44,7 +45,7 @@ public class HistoryController {
 		HashMap<String, List<History>> hashMap = new HashMap<>();
 		hashMap.put("histories", histories);
 		StringBuilder stringBuilder = new StringBuilder();
-		histories.forEach(hst -> stringBuilder.append(hst.showHistory()+EOL));
+		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
 		LOGGER.info(stringBuilder.toString());
 		//
 		return new ModelAndView("listing", hashMap);
@@ -125,7 +126,7 @@ public class HistoryController {
 		Long longId = history.getId();
 		if ( longId == null || longId <= 1 ) { history = new History(); } else {
 			try {
-			//	history historyService save(history)
+				if (AUTHORITY) { history = historyService.save(history); }
 			}
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
@@ -144,7 +145,7 @@ public class HistoryController {
 		//
 		LOGGER.info("deleter(history): " + history.showHistory());
 		try {
-			// historyService delete(history)
+			if (AUTHORITY) {  historyService.delete(history); }
 		}
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
 		return  showInputs();
@@ -172,9 +173,9 @@ public class HistoryController {
 		modelAndView.addObject("historySum", history.showHistory());
 
 		modelAndView.addObject("genConfig", genConfig);
-		modelAndView.addObject("eralist", genConfig.getEralist());
-		modelAndView.addObject("localelist", genConfig.getLocalelist());
-		modelAndView.addObject("taglist", genConfig.getTaglist());
+		modelAndView.addObject("eralist", GeneralConfiguration.getEralist());
+		modelAndView.addObject("localelist", GeneralConfiguration.getLocalelist());
+		modelAndView.addObject("taglist", GeneralConfiguration.getTaglist());
 
 		LOGGER.info("history: " + history.showHistory());
 		return modelAndView;
