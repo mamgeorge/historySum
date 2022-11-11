@@ -65,7 +65,7 @@ function checkSubmit() {
 			<input class = "inputs" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
 				th:field = "*{mediaicopath}"
 				title = "ideally a curated (square, low resolution) jpg"/>
-			</span>
+			</span>square
 		
 		<br />
 			<hr /><!-- historySum -->
@@ -92,9 +92,9 @@ function checkSubmit() {
 		-->
 	<td>lst<br />era</td>
 	<td>
-		<select th:field="${eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
+		<select th:field="${historyView.eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
 			<option value="0">select option</option>
-			<option th:each="era : ${eralist}" th:value="${era.key}" th:text="${era.value}"></option>
+			<option th:each="era : ${historyView.eralist}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
 		<br />
 		<textarea name = "eramain" placeholder = "eramain"
@@ -105,9 +105,9 @@ function checkSubmit() {
 <tr>
 	<td>lst<br />loc</td>
 	<td>
-		<select th:field="${localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
+		<select th:field="${historyView.localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
 			<option value="0">select option</option>
-			<option th:each="loc : ${localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
+			<option th:each="loc : ${historyView.localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
 		<br />
 		<textarea name = "locales" placeholder = "locales"
@@ -143,9 +143,9 @@ function checkSubmit() {
 <tr>
 	<td>lst<br />tags</td>
 	<td>
-		<select th:field="${taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
+		<select th:field="${historyView.taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
 			<option value="0">select option</option>
-			<option th:each="tags : ${taglist}" th:value="${tags}" th:text="${tags}"></option>
+			<option th:each="tags : ${historyView.taglist}" th:value="${tags}" th:text="${tags}"></option>
 		</select>
 		<br />
 		<textarea name = "tags" placeholder = "tags"

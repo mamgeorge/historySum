@@ -18,24 +18,25 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 <br/>
 <table>
 <tr style = "background-color: transparent;" >
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "datebeg"		/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "dateend"		/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "eramain"		/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "locales"		/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "personname"	/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "eventmain"		/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "references"	/></td>
-	<td class = "trn"><input class = "trn inp" type = "text" value = "" title = "tags"			/></td>
-</tr><tr style = "background-color: transparent;" >
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.datebeg}"		value = "" title = "datebeg"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.dateend}"		value = "" title = "dateend"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.eramain}"		value = "" title = "eramain"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.locales}"		value = "" title = "locales"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.personname}"	value = "" title = "personname"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.eventmain}"		value = "" title = "eventmain"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.referenced}"	value = "" title = "referenced"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.tags}"			value = "" title = "tags"		/></td>
+	</tr>
+<tr style = "background-color: transparent;" >
 	<td class = "trn tny">datebeg		</td>
 	<td class = "trn tny">dateend		</td>
 	<td class = "trn tny">eramain		</td>
 	<td class = "trn tny">locales		</td>
 	<td class = "trn tny">personname	</td>
 	<td class = "trn tny">eventmain		</td>
-	<td class = "trn tny">references	</td>
+	<td class = "trn tny">referenced	</td>
 	<td class = "trn tny">tags			</td>
-</tr>
+	</tr>
 </table>
 
 <br/>
@@ -48,7 +49,7 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 	<th>era/locations</th>
 	<th>person/event</th>
 	<th>eventmain</th>
-	<th>reference/group</th>
+	<th>referenced/tags</th>
 	</tr>
 
 <tr th:each = "history: ${histories}" th:onclick = "|location.href='/showInputs/${history.id}'|" >
@@ -75,7 +76,7 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 <td><span id = "eventmain" th:text = "${history.eventmain}" ></span>
 	</td>
 
-<td><span id = "references" th:text = "${history.referenced}" ></span> /<br/>
+<td><span id = "referenced" th:text = "${history.referenced}" ></span> /<br/>
 	<span id = "tags" th:text = "${history.tags}" ></span>
 	</td>
 

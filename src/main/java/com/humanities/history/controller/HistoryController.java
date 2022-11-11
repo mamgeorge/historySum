@@ -2,6 +2,7 @@ package com.humanities.history.controller;
 
 import com.humanities.history.configuration.GeneralConfiguration;
 import com.humanities.history.model.History;
+import com.humanities.history.model.HistoryView;
 import com.humanities.history.services.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class HistoryController {
 
 		LOGGER.info("showListing()");
 		List<History> histories = historyService.findAll();
-		LOGGER.info("histories: " + histories.size());
+		LOGGER.info("histories.size: " + histories.size());
 		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
 		//
 		HashMap<String, List<History>> hashMap = new HashMap<>();
@@ -113,7 +114,7 @@ public class HistoryController {
 				LOGGER.info(ex.getMessage());
 			}
 		}
-		LOGGER.info("history: " + history.showHistory());
+		LOGGER.info("showHistory: " + history.showHistory());
 
 		return getHistoryMAV(history);
 	}
@@ -167,15 +168,12 @@ public class HistoryController {
 	//#### STATICS ####
 	private ModelAndView getHistoryMAV(History history) {
 
+		HistoryView historyView = new HistoryView();
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("inputs");
 		modelAndView.addObject("history", history);
-		modelAndView.addObject("historySum", history.showHistory());
-
-		modelAndView.addObject("genConfig", genConfig);
-		modelAndView.addObject("eralist", GeneralConfiguration.getEralist());
-		modelAndView.addObject("localelist", GeneralConfiguration.getLocalelist());
-		modelAndView.addObject("taglist", GeneralConfiguration.getTaglist());
+		modelAndView.addObject("historyView", historyView);
 
 		LOGGER.info("history: " + history.showHistory());
 		return modelAndView;

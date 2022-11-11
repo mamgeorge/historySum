@@ -22,7 +22,7 @@ public class HistoryView {
 	private String tags;        // 'h0000'
 	private String mediaicopath;// '_0000_H_Nazareth_JesusCross'
 
-	@Getter private static Map<String, String> eralist; // lombok requires @Getter here to use statics
-	@Getter private static Map<String, String> localelist;
-	@Getter private static List<String> taglist;
+	private Map<String, String> eralist; // lombok requires @Getter if using statics
+	private Map<String, String> localelist;
+	private List<String> taglist;
 }

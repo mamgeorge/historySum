@@ -1,5 +1,6 @@
 package com.humanities.history.configuration;
 
+import com.humanities.history.model.HistoryView;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -28,9 +28,9 @@ import java.util.logging.Logger;
 public class GeneralConfiguration {
 
 	private static final Logger LOGGER = Logger.getLogger(GeneralConfiguration.class.getName());
+
 	@Autowired private Environment environment;
 	@Autowired private ServletContext servletContext;
-
 	@Value( "${core.source}" ) private String coreSource;
 
 	// https://stackoverflow.com/questions/44399422/read-file-from-resources-folder-in-spring-boot
@@ -42,19 +42,19 @@ public class GeneralConfiguration {
 		+ "natural global apologetic";
 
 	private static final String EOL = "\n";
-	@Getter private static Map<String, String> eralist = null; // lombok requires @Getter here to use statics
-	@Getter private static Map<String, String> localelist = null;
-	@Getter private static List<String> taglist = Arrays.asList(GROUP_TEXT.split(" "));
+	private HistoryView historyView;
 
 	public GeneralConfiguration( ) {
 
 		LOGGER.info("#### init ####: ");
+		historyView = new HistoryView();
 		try {
 			String txtLinesEra = new String(Files.readAllBytes(Paths.get(FILENAME_ERA)));
-			eralist = parseOptions(txtLinesEra);
-
 			String txtLinesLoc = new String(Files.readAllBytes(Paths.get(FILENAME_LOC)));
-			localelist = parseOptions(txtLinesLoc);
+
+			historyView.setEralist(parseOptions(txtLinesEra));
+			historyView.setLocalelist(parseOptions(txtLinesLoc));
+			historyView.setTaglist(Arrays.asList(GROUP_TEXT.split(" ")));
 		}
 		catch (IOException ex) { LOGGER.info("ERROR: " + ex.getMessage()); }
 	}
