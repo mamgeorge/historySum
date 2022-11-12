@@ -10,6 +10,8 @@ public interface IHistoryService {
 
 	List<History> findByDateBeg(String datebeg);
 
+	List<History> findByReferenced(String referenced);
+
 	History save(History history);
 
 	List<History> findAll( );

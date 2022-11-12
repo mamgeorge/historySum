@@ -47,7 +47,8 @@ public class History {
 			+ this.dateend + " / "
 			+ this.locales + " / "
 			+ this.personname + " / "
-			+ this.eventmain + "";
+			+ this.eventmain + " / "
+			+ this.referenced + "";
 		return txtLine;
 	}
 }

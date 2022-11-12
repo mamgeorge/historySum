@@ -38,6 +38,11 @@ import java.util.Optional;
 		return histories;
 	}
 
+	@Override public List<History> findByReferenced(String referenced) {
+
+		return historyRepository.findByReferenced(referenced);
+	}
+
 	@Override public History save(History history) { return historyRepository.save(history); }
 
 	@Override public List<History> findAll( ) { return (List<History>) historyRepository.findAll(); }

@@ -59,8 +59,22 @@ public class HistoryServiceTest {
 
 	@Test void test_historyService_findByDateBeg( ) {
 
+		// uses QBEE QueryByExampleExecutor
 		String txtLines = "";
 		List<History> histories = historyService.findByDateBeg("-0004");
+
+		for ( History history : histories ) {
+			txtLines += history.showHistory() + EOL;
+		}
+		System.out.println(txtLines);
+		assertNotNull(histories);
+	}
+
+	@Test void test_historyService_findByReferenced( ) {
+
+		// uses Query
+		String txtLines = "";
+		List<History> histories = historyService.findByReferenced("Josephus");
 
 		for ( History history : histories ) {
 			txtLines += history.showHistory() + EOL;
