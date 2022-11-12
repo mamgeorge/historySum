@@ -45,7 +45,7 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 <tr>
 	<!--th>id</th-->
 	<th>img</th>
-	<th>date</th>
+	<th>daterange</th>
 	<th>era/locations</th>
 	<th>person/event</th>
 	<th>eventmain</th>
@@ -60,10 +60,8 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 		/><!--th:onclick = "javascript: showImage(this);"-->
 		</td>
 	<td style = "white-space: nowrap;">
-		<span id = "datebeg" th:text = "${history.datebegpre}" ></span><span
-			th:text = "${#strings.substring(history.datebeg, 0, 4)}" ></span>
-		<span id = "dateend" th:text = "${history.dateendpre}" ></span><span
-			th:text = "${#strings.substring(history.dateend, 0, 4)}" ></span>
+		<span id = "datebeg" th:text = "${history.datebeg}" ></span>
+		<span id = "dateend" th:text = "${history.dateend}" ></span>
 		</td>
 
 <td><span id = "eramain" th:text = "${history.eramain}" ></span> /<br/>

@@ -10,10 +10,8 @@ import java.util.Map;
 @Getter @Setter @NoArgsConstructor
 public class HistoryView {
 
-	private String datebegpre;  // '-'
-	private String datebeg;     // '0004-00-00-00.00.00'
-	private String dateendpre;  // '+'
-	private String dateend;     // '0029-04-01-00.00.00'
+	private String datebeg;     // '-0004'
+	private String dateend;     // '+0029'
 	private String eramain;     // 'Roman Empire'
 	private String locales;     // 'Israel , Jerusalem'
 	private String personname;  // 'Jesus Christ'

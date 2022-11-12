@@ -1,7 +1,8 @@
-package com.humanities.history.configuration;
+package com.humanities.history;
 
 import com.humanities.history.controller.HistoryController;
 import com.humanities.history.model.History;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,7 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
+	@Disabled
 	@Test void test_showListing_call( ) {
 		//
 		System.out.println("localServerPort_RND: " + localServerPort_RND);

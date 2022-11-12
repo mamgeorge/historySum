@@ -49,8 +49,6 @@ function checkSubmit() {
 	<td>beg</td>
 	<td>
 		<span style = "white-space: nowrap;">
-		<input type = "radio" name = "datebegpre" value = "-" th:field = "*{datebegpre}">-
-		<input type = "radio" name = "datebegpre" value = "+" th:field = "*{datebegpre}">+
 		<input type = "text" name = "datebeg" placeholder = "datebeg"
 			th:field = "*{datebeg}" title = "attempt to use 4 digit year; otherwise use SQL 0004-00-00-00.00.00"/>
 		</span>
@@ -77,8 +75,6 @@ function checkSubmit() {
 	<td>end</td>
 	<td>
 		<span style = "white-space: nowrap;">
-		<input type = "radio" name = "dateendpre" value = "-" th:field = "*{dateendpre}">-
-		<input type = "radio" name = "dateendpre" value = "+" th:field = "*{dateendpre}">+
 		<input type = "text" name = "dateend" placeholder = "dateend"
 			th:field = "*{dateend}"/>
 		</span>
