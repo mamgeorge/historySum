@@ -55,7 +55,8 @@ function checkSubmit() {
 		</td>
 
 	<td rowspan = "8"><!-- img -->
-		<img class = "inputs" th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
+		<img class = "inputs"
+			th:src = "@{${'/images/' + history.mediaicopath + '.jpg' + '?q=' + #strings.randomAlphanumeric(5)}}"
 			th:onclick = "javascript: showImage(this);" th:title = "${history.id}" />
 
 		<br/><!-- mediaicopath -->
@@ -63,7 +64,7 @@ function checkSubmit() {
 			<input class = "inputs" type = "text" name = "mediaicopath" placeholder = "mediaicopath"
 				th:field = "*{mediaicopath}"
 				title = "ideally a curated (square, low resolution) jpg"/>
-			</span>square
+			</span>
 		
 		<br />
 			<hr /><!-- historySum -->

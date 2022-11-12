@@ -48,7 +48,7 @@ public class HistoryController {
 
 		HashMap<String, List<History>> hashMap = new HashMap<>();
 		hashMap.put("histories", histories);
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder(EOL);
 		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
 		LOGGER.info(stringBuilder.toString());
 

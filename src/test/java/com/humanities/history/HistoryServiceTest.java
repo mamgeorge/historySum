@@ -4,6 +4,7 @@ import com.humanities.history.model.History;
 import com.humanities.history.services.IHistoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,11 +19,13 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 public class HistoryServiceTest {
 
 	private static final String EOL = "\n";
@@ -31,20 +34,39 @@ public class HistoryServiceTest {
 	@Autowired private IHistoryService historyService;
 
 	@Test void test_history_showHistory( ) {
-		//
-		History history = new History();
-		String txtLines = String.format(FRMT, "history", history.showHistory());
-		//
+
+		String txtLines = "";
+		List<History> histories = new ArrayList<>();
+		histories.add(new History("+0000", "event1"));
+		histories.add(new History("+1000", "event2"));
+
+		for ( History history : histories ) {
+			txtLines += history.showHistory() + EOL;
+		}
 		System.out.println(txtLines);
-		assertTrue(txtLines.contains("history"));
+		assertNotNull(histories);
 	}
 
-	@Test void test_historyService_showHistory( ) {
+	@Test void test_historyService_findById( ) {
 
+		String txtLines = "";
 		History history = new History();
-		// history = historyService.findById(2L);
-		System.out.println(history.showHistory());
+		history = historyService.findById(2L);
+		txtLines = history.showHistory();
+		System.out.println(txtLines);
 		assertNotNull(history);
+	}
+
+	@Test void test_historyService_findByDateBeg( ) {
+
+		String txtLines = "";
+		List<History> histories = historyService.findByDateBeg("-0004");
+
+		for ( History history : histories ) {
+			txtLines += history.showHistory() + EOL;
+		}
+		System.out.println(txtLines);
+		assertNotNull(histories);
 	}
 
 	@Test void test_JDBC( ) {

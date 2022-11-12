@@ -26,27 +26,23 @@ public class History {
 	private String eramain;     // 'Roman Empire'
 	private String locales;     // 'Israel , Jerusalem'
 	private String personname;  // 'Jesus Christ'
-	private String eventmain;   // 'birth , ministry , death , resurrection'
-	private String referenced;  // 'Josephus, Tacitis, MaraBarSerapion, Phlegon, Thallus'
+	private String eventmain;   // 'Star of Bethlehem'
+	private String referenced;  // ''
 	private String tags;        // 'h0000'
 	private String mediaicopath;// '_0000_H_Nazareth_JesusCross'
 	private Date datecre;       // creation
 	private Date datemod;       // modified
 	private String user;        // user
 
+	public History(String datebeg, String eventmain) {
+
+		this.datebeg=datebeg;
+		this.eventmain=eventmain;
+	}
+
 	public String showHistory( ) {
-		//
-		String newDateBeg = "";
-		String newDateEnd = "";
-		String txtLine;
-		if ( this.datebeg == null || this.datebeg.length() > 4 ) { LOGGER.info(""); } else {
-			newDateBeg = datebeg.substring(0, 4);
-		}
-		if ( this.dateend == null || this.dateend.length() > 4 ) { LOGGER.info(""); } else {
-			newDateEnd = dateend.substring(0, 4);
-		}
-		//
-		txtLine = this.id + " / "
+
+		String txtLine = this.id + " / "
 			+ this.datebeg + " "
 			+ this.dateend + " / "
 			+ this.locales + " / "

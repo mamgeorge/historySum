@@ -8,6 +8,8 @@ public interface IHistoryService {
 
 	History findById(Long id);
 
+	List<History> findByDateBeg(String datebeg);
+
 	History save(History history);
 
 	List<History> findAll( );
