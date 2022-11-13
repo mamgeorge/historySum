@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th = "https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th = "http://www.thymeleaf.org">
 <head><title>index</title><meta charset = "UTF-8">
 <link rel = "stylesheet" th:href = "@{/basics.css}">
 <style>
@@ -7,7 +7,7 @@ fieldset { background: rgba( 0, 0, 0, 0.2); border-radius: 10px; }
 </style>
 </head>
 
-<body><br/><h3>appendix</h3>
+<body><br/><a href = "/"><h3>appendix</h3></a>
 <br/><h6><span th:text = "${ #dates.formatISO( #dates.createNow() ) }" ></span></h6>
 	<br/>
 	<br/><hr/>

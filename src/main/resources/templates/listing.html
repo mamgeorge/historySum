@@ -1,16 +1,70 @@
 <!DOCTYPE html>
-<html lang = "en" xmlns:th = "https://www.thymeleaf.org">
+<html lang = "en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th = "https://www.thymeleaf.org">
 <head><title>listing</title><meta charset = "UTF-8">
-<link rel = "stylesheet" th:href = "@{/basics.css}">
+<link rel = "stylesheet" href="../static/basics.css" th:href = "@{/basics.css}" >
 <style>
 table.list { width: 640px; }
 img.list { width: 50px; height: 50px; }
 div.list { display: inline-block; height: 500px; overflow: auto; }
+.inp { width: 70px; text-align: left; padding: 0px; margin: 0px;
+	border: black solid 1px; border-radius: 4px; font-size: 14pt; }
+.tny { font-size: 8pt; text-align: center; border: 0px; }
+.trn { background: rgba(0,0,0,.0); padding: 0px; margin: 0px; }
+.brd { border: 0px; }
+.btn { width: 70px; height: 40px; background-color: #403030; color: #ffffff;
+	font-weight: bold; font-size: 14pt; text-align: center;
+	border: 5px #a08060 outset; border-radius: 5px; }
 </style>
+<script type = "text/javascript" >
+function checkSubmit() {
+
+	var form = document.forms["listingForm"];
+	var flen = form.elements.length;
+	var txtLine = "";
+	for ( ictr = 0; ictr < flen; ictr++) {
+		txtLine += form.elements[ ictr ].value + " | " + form.elements[ ictr ].name + " / ";
+	}
+	// alert('flen: ' + flen + ', ' + txtLine);
+}
+</script>
 </head>
 
-<body><br /><h3>History Listing</h3><br/>
-<form th:action = "@{/posted}" th:object = "${history}" method = "post"></form>
+<body><br /><a href = "/"><h3>History Listing</h3></a><br/>
+<br/>
+
+<form th:action = "@{/listParms}" th:object = "${historyView}" method = "post"
+	name = "listingForm" id = "listingForm" >
+<table>
+<tr style = "background-color: transparent;" >
+	<td class = "trn brd" >
+		<input class = "btn" type = "submit" onclick = "return checkSubmit()" value = "Home" /><br />
+		<input class = "btn" type = "submit" onclick = "return checkSubmit()" value = "Clear" /><br />
+		<input class = "btn" type = "submit" onclick = "return checkSubmit()" value = "Send!" />
+	</td>
+	<td class = "trn brd" >
+
+<table>
+<tr style = "background-color: transparent;" >
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.datebeg}"		title = "datebeg"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.dateend}"		title = "dateend"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.eramain}"		title = "eramain"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.locales}"		title = "locales"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.personname}"	title = "personname"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.eventmain}"		title = "eventmain"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.referenced}"	title = "referenced"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.tags}"			title = "tags"			/></td>
+	</tr>
+<tr style = "background-color: transparent;" >
+	<td class = "trn tny">datebeg		</td>
+	<td class = "trn tny">dateend		</td>
+	<td class = "trn tny">eramain		</td>
+	<td class = "trn tny">locales		</td>
+	<td class = "trn tny">personname	</td>
+	<td class = "trn tny">eventmain		</td>
+	<td class = "trn tny">referenced	</td>
+	<td class = "trn tny">tags			</td>
+	</tr>
+</table>
 
 <br/>
 <div class = "list">
@@ -18,29 +72,29 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 <tr>
 	<!--th>id</th-->
 	<th>img</th>
-	<th>date</th>
+	<th>daterange</th>
 	<th>era/locations</th>
 	<th>person/event</th>
 	<th>eventmain</th>
-	<th>reference/group</th>
+	<th>referenced/tags</th>
 	</tr>
 
 <tr th:each = "history: ${histories}" th:onclick = "|location.href='/showInputs/${history.id}'|" >
 
 	<!--td><span id = "id" th:text = "${#numbers.formatInteger(history.id,7)}"/></td-->
 	<td>
-		<img class = "list" id = "mediaicopath" th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
-			th:title = "${history.id}" /><!--th:onclick = "javascript: showImage(this);"-->
+		<img class = "list" id = "mediaicopath"
+			th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
+			th:title = "${ #numbers.formatInteger( history.id, 7 ) }"
+		/><!-- th:onclick = "javascript: showImage(this);" -->
 		</td>
 	<td style = "white-space: nowrap;">
-		<span id = "datebeg" th:text = "${history.datebegpre}" ></span><span
-			th:text = "${#strings.substring(history.datebeg, 0, 4)}" ></span>
-		<span id = "dateend" th:text = "${history.dateendpre}" ></span><span
-			th:text = "${#strings.substring(history.dateend, 0, 4)}" ></span>
+		<span id = "datebeg" th:text = "${history.datebeg}" ></span>
+		<span id = "dateend" th:text = "${history.dateend}" ></span>
 		</td>
 
 <td><span id = "eramain" th:text = "${history.eramain}" ></span> /<br/>
-	<span id = "locations" th:text = "${history.locales}" ></span>
+	<span id = "locales" th:text = "${history.locales}" ></span>
 	</td>
 
 <td><span id = "personname" th:text = "${history.personname}" ></span>
@@ -49,13 +103,16 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 <td><span id = "eventmain" th:text = "${history.eventmain}" ></span>
 	</td>
 
-<td><span id = "references" th:text = "${history.referenced}" ></span> /<br/>
+<td><span id = "referenced" th:text = "${history.referenced}" ></span> /<br/>
 	<span id = "tags" th:text = "${history.tags}" ></span>
 	</td>
 
 </tr>
 </table>
 </div>
+
+</td></tr></table>
+</form>
 
 <br/>
 <br/><h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span> |

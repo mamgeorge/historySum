@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang = "en" xmlns:th = "https://www.thymeleaf.org">
+<html lang = "en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th = "https://www.thymeleaf.org">
 <head><title>inputs</title><meta charset = "UTF-8">
-<link rel = "stylesheet" th:href = "@{/basics.css}">
+<link rel = "stylesheet" href="../static/basics.css" th:href = "@{/basics.css}">
 <style>
 img.inputs		{ width: 400px; height: 400px; border-radius: 8px; }
 input.inputs	{ width: 350px; font-size: 10pt; }
 input.none		{ display: none;}
+.btn { width: 70px; text-align: center; background: #e0e0e0; padding: 4px;
+	border: black solid 1px; border-radius: 4px; font-size: 14pt; font-weight: bold; }
 </style>
 <script type = "text/javascript" th:src = "@{/basics.js}"></script>
 <script type = "text/javascript" >
@@ -21,18 +23,24 @@ function checkSubmit() {
 
 	// form.querySelectorAll("input:checked")
 	// form.querySelectorAll('input[type="checkbox"]:checked, input[type="radio"]:checked');
-	var form = document.getElementById("inputHistory");
+	var form = document.getElementById("inputForm");
 	var btnVal = form.querySelectorAll('input[type="submit"]:not([value=""])');
 	var selVal = btnVal.value; // forEach(el=>el.click());
 }
 </script>
 </head>
 
-<body><br /><h3>History Inputs</h3><br/>
+<body><br /><a href = "/"><h3>History Inputs</h3></a><br/>
 
 <form th:action = "@{/posted}" th:object = "${history}" method = "post"
-	onsubmit = "return checkSubmit()" name = "inputHistory" id = "inputHistory" >
-<br/><span th:insert = "toolbar.html" ></span>
+	name = "inputForm" id = "inputForm" onsubmit = "return checkSubmit()" >
+<br/>
+	<input class = "btn" type = "submit" name = "nav" value = "back"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "list"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "delete"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "save"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "clear"	/>
+	<input class = "btn" type = "submit" name = "nav" value = "frwd"	/>
 <br/><br/>
 
 <table style = "width:400px;" >
@@ -41,15 +49,14 @@ function checkSubmit() {
 	<td>beg</td>
 	<td>
 		<span style = "white-space: nowrap;">
-		<input type = "radio" name = "datebegpre" value = "-" th:field = "*{datebegpre}">-
-		<input type = "radio" name = "datebegpre" value = "+" th:field = "*{datebegpre}">+
 		<input type = "text" name = "datebeg" placeholder = "datebeg"
 			th:field = "*{datebeg}" title = "attempt to use 4 digit year; otherwise use SQL 0004-00-00-00.00.00"/>
 		</span>
 		</td>
 
 	<td rowspan = "8"><!-- img -->
-		<img class = "inputs" th:src = "@{${'/images/' + history.mediaicopath + '.jpg'}}"
+		<img class = "inputs"
+			th:src = "@{${'/images/' + history.mediaicopath + '.jpg' + '?q=' + #strings.randomAlphanumeric(5)}}"
 			th:onclick = "javascript: showImage(this);" th:title = "${history.id}" />
 
 		<br/><!-- mediaicopath -->
@@ -69,8 +76,6 @@ function checkSubmit() {
 	<td>end</td>
 	<td>
 		<span style = "white-space: nowrap;">
-		<input type = "radio" name = "dateendpre" value = "-" th:field = "*{dateendpre}">-
-		<input type = "radio" name = "dateendpre" value = "+" th:field = "*{dateendpre}">+
 		<input type = "text" name = "dateend" placeholder = "dateend"
 			th:field = "*{dateend}"/>
 		</span>
@@ -84,9 +89,9 @@ function checkSubmit() {
 		-->
 	<td>lst<br />era</td>
 	<td>
-		<select th:field="${eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
+		<select th:field="${historyView.eralist}" id = "eralist" onchange = "add2Field('eralist', 'eramain');">
 			<option value="0">select option</option>
-			<option th:each="era : ${eralist}" th:value="${era.key}" th:text="${era.value}"></option>
+			<option th:each="era : ${historyView.eralist}" th:value="${era.key}" th:text="${era.value}"></option>
 			</select>
 		<br />
 		<textarea name = "eramain" placeholder = "eramain"
@@ -97,9 +102,9 @@ function checkSubmit() {
 <tr>
 	<td>lst<br />loc</td>
 	<td>
-		<select th:field="${localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
+		<select th:field="${historyView.localelist}" id = "localelist" onchange = "add2Field('localelist', 'locales');">
 			<option value="0">select option</option>
-			<option th:each="loc : ${localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
+			<option th:each="loc : ${historyView.localelist}" th:value="${loc.key}" th:text="${loc.value}"></option>
 			</select>
 		<br />
 		<textarea name = "locales" placeholder = "locales"
@@ -135,9 +140,9 @@ function checkSubmit() {
 <tr>
 	<td>lst<br />tags</td>
 	<td>
-		<select th:field="${taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
+		<select th:field="${historyView.taglist}" id = "taglist" onchange = "add2Field('taglist', 'tags');">
 			<option value="0">select option</option>
-			<option th:each="tags : ${taglist}" th:value="${tags}" th:text="${tags}"></option>
+			<option th:each="tags : ${historyView.taglist}" th:value="${tags}" th:text="${tags}"></option>
 		</select>
 		<br />
 		<textarea name = "tags" placeholder = "tags"

@@ -1,4 +1,4 @@
-package com.humanities.history.services;
+package com.humanities.history.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 import java.util.logging.Logger;
 
 @Getter @Setter @NoArgsConstructor
@@ -17,36 +18,37 @@ public class History {
 
 	private static final Logger LOGGER = Logger.getLogger(History.class.getName());
 
+	// datebeg, dateend, eramain, locales, personname, eventmain, referenced, tags, mediaicopath
 	@Id @GeneratedValue( strategy = GenerationType.IDENTITY ) // SEQUENCE?
 	private Long id;
-	private String datebegpre;  // '-'
 	private String datebeg;     // '0004-00-00-00.00.00'
-	private String dateendpre;  // '+'
 	private String dateend;     // '0029-04-01-00.00.00'
 	private String eramain;     // 'Roman Empire'
 	private String locales;     // 'Israel , Jerusalem'
 	private String personname;  // 'Jesus Christ'
-	private String eventmain;   // 'birth , ministry , death , resurrection'
-	private String referenced;  // 'Josephus, MaraBarSerapion, Phlegon, Thallus'
+	private String eventmain;   // 'Star of Bethlehem'
+	private String referenced;  // ''
 	private String tags;        // 'h0000'
 	private String mediaicopath;// '_0000_H_Nazareth_JesusCross'
+	private Date datecre;       // creation
+	private Date datemod;       // modified
+	private String user;        // user
+
+	public History(String datebeg, String eventmain) {
+
+		this.datebeg=datebeg;
+		this.eventmain=eventmain;
+	}
 
 	public String showHistory( ) {
-		//
-		String newDateBeg = "";
-		String  newDateEnd = "";
-		String  txtLine;
-		if ( this.datebeg == null || this.datebeg.length() > 4 ) { LOGGER.info(""); } else
-		{ newDateBeg = datebeg.substring(0, 4); }
-		if ( this.dateend == null || this.dateend.length() > 4 ) { LOGGER.info(""); } else
-		{ newDateEnd = dateend.substring(0, 4); }
-		//
-		txtLine = this.id + " / "
-			+ this.datebegpre + newDateBeg + " "
-			+ this.dateendpre + newDateEnd + " / "
+
+		String txtLine = this.id + " / "
+			+ this.datebeg + " "
+			+ this.dateend + " / "
 			+ this.locales + " / "
 			+ this.personname + " / "
-			+ this.eventmain + "";
+			+ this.eventmain + " / "
+			+ this.referenced + "";
 		return txtLine;
 	}
 }

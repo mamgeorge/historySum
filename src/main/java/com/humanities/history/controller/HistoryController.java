@@ -1,7 +1,7 @@
 package com.humanities.history.controller;
 
-import com.humanities.history.configuration.GeneralConfiguration;
-import com.humanities.history.services.History;
+import com.humanities.history.model.History;
+import com.humanities.history.model.HistoryView;
 import com.humanities.history.services.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +21,14 @@ import java.util.logging.Logger;
 public class HistoryController {
 
 	@Autowired private IHistoryService historyService;
-	@Autowired private GeneralConfiguration genConfig;
 
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
 	private static final String EOL = "\n";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
+	private static final boolean AUTHORITY = false;
+
+	private HistoryView historyView = new HistoryView();
 
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
@@ -34,27 +36,51 @@ public class HistoryController {
 		return new ModelAndView("home", new HashMap<>());
 	}
 
-	@GetMapping( "/listing" ) public ModelAndView showListing( ) {
+	@GetMapping( "/listing" ) public ModelAndView showListView() {
 
-		LOGGER.info("showListing()");
+		// @ModelAttribute HistoryView historyView
+		LOGGER.info("showListView()");
 		List<History> histories = historyService.findAll();
-		LOGGER.info("histories: " + histories.size());
+		LOGGER.info("histories.size: " + histories.size());
 		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
-		//
-		HashMap<String, List<History>> hashMap = new HashMap<>();
-		hashMap.put("histories", histories);
-		StringBuilder stringBuilder = new StringBuilder();
-		histories.forEach(hst -> stringBuilder.append(hst.showHistory()+EOL));
+
+		StringBuilder stringBuilder = new StringBuilder(EOL);
+		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
 		LOGGER.info(stringBuilder.toString());
-		//
-		return new ModelAndView("listing", hashMap);
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("listing");
+		modelAndView.addObject("histories", histories);
+		modelAndView.addObject("historyView", historyView);
+		return modelAndView;
 	}
 
+	@PostMapping( "/listParms" ) public ModelAndView showListParms(@ModelAttribute HistoryView historyView) {
+
+		LOGGER.info("showListParms()");
+		String dateBeg = historyView.getDatebeg();
+
+		List<History> histories = historyService.findByDateBeg(dateBeg);
+		LOGGER.info("histories.size: " + histories.size());
+		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
+
+		StringBuilder stringBuilder = new StringBuilder(EOL);
+		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
+		LOGGER.info(stringBuilder.toString());
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("listing");
+		modelAndView.addObject("histories", histories);
+		modelAndView.addObject("historyView", historyView);
+		return modelAndView;
+	}
+
+	//#### Inputs
 	@GetMapping( "/showInputs" ) public ModelAndView showInputs( ) {
 
 		LOGGER.info("showInputs()");
 		History history = new History();
-		return  getHistoryMAV(history);
+		return getInputsMAV(history);
 	}
 
 	@GetMapping( "/showInputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
@@ -73,11 +99,13 @@ public class HistoryController {
 		catch (NoSuchElementException ex) {
 			LOGGER.severe(ex.getMessage());
 		}
-		return getHistoryMAV(history);
+		return getInputsMAV(history);
 	}
 
 	@PostMapping( "/posted" ) // ModelAttribute or RequestBody?
-	public ModelAndView posted(@ModelAttribute History history, @RequestParam( "nav" ) String nav) {
+	public ModelAndView posted(
+		@ModelAttribute History history,
+		@RequestParam( "nav" ) String nav) {
 
 		LOGGER.info("posted(history, nav)");
 		ModelAndView modelAndView = new ModelAndView();
@@ -95,7 +123,7 @@ public class HistoryController {
 			++longId;
 			modelAndView = traverse(history, longId);
 		}
-		if ( nav != null && nav.equals("list") ) { modelAndView = showListing(); }
+		if ( nav != null && nav.equals("list") ) { modelAndView = showListView(); }
 		if ( nav != null && nav.equals("clear") ) { modelAndView = showInputs(); }
 		if ( nav != null && nav.equals("save") ) { modelAndView = saver(history); }
 		if ( nav != null && nav.equals("delete") ) { modelAndView = deleter(history); }
@@ -112,9 +140,9 @@ public class HistoryController {
 				LOGGER.info(ex.getMessage());
 			}
 		}
-		LOGGER.info("history: " + history.showHistory());
+		LOGGER.info("showHistory: " + history.showHistory());
 
-		return getHistoryMAV(history);
+		return getInputsMAV(history);
 	}
 
 	@PostMapping( "/saver" ) public ModelAndView saver(@ModelAttribute History history) {
@@ -125,7 +153,7 @@ public class HistoryController {
 		Long longId = history.getId();
 		if ( longId == null || longId <= 1 ) { history = new History(); } else {
 			try {
-			//	history historyService save(history)
+				if ( AUTHORITY ) { history = historyService.save(history); }
 			}
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
@@ -144,10 +172,10 @@ public class HistoryController {
 		//
 		LOGGER.info("deleter(history): " + history.showHistory());
 		try {
-			// historyService delete(history)
+			if ( AUTHORITY ) { historyService.delete(history); }
 		}
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
-		return  showInputs();
+		return showInputs();
 	}
 
 	//#### extras
@@ -164,17 +192,12 @@ public class HistoryController {
 	}
 
 	//#### STATICS ####
-	private ModelAndView getHistoryMAV(History history) {
+	private ModelAndView getInputsMAV(History history) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("inputs");
 		modelAndView.addObject("history", history);
-		modelAndView.addObject("historySum", history.showHistory());
-
-		modelAndView.addObject("genConfig", genConfig);
-		modelAndView.addObject("eralist", genConfig.getEralist());
-		modelAndView.addObject("localelist", genConfig.getLocalelist());
-		modelAndView.addObject("taglist", genConfig.getTaglist());
+		modelAndView.addObject("historyView", historyView);
 
 		LOGGER.info("history: " + history.showHistory());
 		return modelAndView;
