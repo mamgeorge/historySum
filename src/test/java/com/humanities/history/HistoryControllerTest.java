@@ -56,11 +56,11 @@ public class HistoryControllerTest {
 		assertNotNull(historyController);
 	}
 
-	@Test void test_showListing( ) {
+	@Test void test_showListViews( ) {
 		//
 		StringBuilder stringBuilder = new StringBuilder();
 		//
-		ModelAndView MAV = historyController.showListing();
+		ModelAndView MAV = historyController.showListView();
 		HashMap<String, Object> hashMap = (HashMap<String, Object>) MAV.getModel();
 		List<History> histories = (List<History>) hashMap.get("histories");
 		AtomicInteger ai = new AtomicInteger();
