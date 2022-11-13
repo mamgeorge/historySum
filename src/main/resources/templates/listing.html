@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th = "https://www.thymeleaf.org">
 <head><title>listing</title><meta charset = "UTF-8">
-<link rel = "stylesheet" th:href = "@{/basics.css}">
+<link rel = "stylesheet" href="../static/basics.css" th:href = "@{/basics.css}" >
 <style>
 table.list { width: 640px; }
 img.list { width: 50px; height: 50px; }
 div.list { display: inline-block; height: 500px; overflow: auto; }
-.inp { width: 80px; text-align: left; padding: 0px; margin: 0px;
+.inp { width: 70px; text-align: left; padding: 0px; margin: 0px;
 	border: black solid 1px; border-radius: 4px; font-size: 14pt; }
 .tny { font-size: 8pt; text-align: center; border: 0px; }
 .trn { background: rgba(0,0,0,.0); padding: 0px; margin: 0px; }
+.btn { height: 40px; background-color: #403030; color: #ffffff; font-weight: bold; font-size: 14pt;
+	border: 5px #a08060 outset; border-radius: 5px; }
 </style>
+<script type = "text/javascript" >
+function checkSubmit() {
+
+	alert("hi");
+	// form.querySelectorAll("input:checked")
+	// form.querySelectorAll('input[type="checkbox"]:checked, input[type="radio"]:checked');
+	var form = document.getElementById("inputHistory");
+	var btnVal = form.querySelectorAll('input[type="submit"]:not([value=""])');
+	var selVal = btnVal.value; // forEach(el=>el.click());
+}
+</script>
 </head>
 
 <body><br /><a href = "/"><h3>History Listing</h3></a><br/>
-<form th:action = "@{/posted}" th:object = "${history}" method = "post"></form>
+<form th:action = "@{/posted}" th:object = "${history}" onsubmit = "return checkSubmit()" method = "post"></form>
 <br/>
 <table>
 <tr style = "background-color: transparent;" >
@@ -26,6 +39,8 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.eventmain}"		value = "" title = "eventmain"	/></td>
 	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.referenced}"	value = "" title = "referenced"	/></td>
 	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.tags}"			value = "" title = "tags"		/></td>
+	<td class = "trn" rowspan = "2"><input class = "btn" type = "submit" name = "submit"
+		onclick = "javascript: checkSubmit()" value = "Go!" /></td><!-- onclick = "location.href='/listing';" -->
 	</tr>
 <tr style = "background-color: transparent;" >
 	<td class = "trn tny">datebeg		</td>

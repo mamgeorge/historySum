@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th = "https://www.thymeleaf.org">
 <head><title>index</title><meta charset = "UTF-8">
-<link rel = "stylesheet" href = "/basics.css">
+<link rel = "stylesheet" href="../static/basics.css" th:href = "@{/basics.css}"><!--href = "/basics.css" -->
 <style>
 img.home { width: 400px; height: 200px; border: 10px #a0a080 outset; border-radius: 15px; }
-
 td.home { padding: 0px; border: 0px transparent none; background: transparent; }
-
 button { width: 180px; height: 80px;
 	background-color: #403030; color: #ffffff;
 	font-weight: bold; font-size: 14pt;
@@ -28,7 +26,7 @@ button { width: 180px; height: 80px;
 	| k'ajláayo'
 </h4><br/>
 
-<img class = "home" src = "/images/history.png"/>
+<img class = "home" th:src = "@{/images/history.png}" src = "../static/images/history.png" />
 
 <br/><br/>
 	<table><tr>
