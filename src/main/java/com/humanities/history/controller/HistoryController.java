@@ -28,7 +28,7 @@ public class HistoryController {
 	private static final int SAMPLE_ITEM = 1;
 	private static final boolean AUTHORITY = false;
 
-	private final HistoryView historyView = new HistoryView();
+	private HistoryView historyView = new HistoryView();
 
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
@@ -36,23 +36,70 @@ public class HistoryController {
 		return new ModelAndView("home", new HashMap<>());
 	}
 
-	@GetMapping( "/listing" ) public ModelAndView showListing( ) {
+	@GetMapping( "/listing" ) public ModelAndView showListView() {
 
 		// @ModelAttribute HistoryView historyView
-		LOGGER.info("showListing()");
-		String dateBeg = historyView.getDatebeg();
-
+		LOGGER.info("showListView()");
 		List<History> histories = historyService.findAll();
 		LOGGER.info("histories.size: " + histories.size());
 		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
 
-		HashMap<String, List<History>> hashMap = new HashMap<>();
-		hashMap.put("histories", histories);
 		StringBuilder stringBuilder = new StringBuilder(EOL);
 		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
 		LOGGER.info(stringBuilder.toString());
 
-		return new ModelAndView("listing", hashMap);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("listing");
+		modelAndView.addObject("histories", histories);
+		modelAndView.addObject("historyView", historyView);
+		return modelAndView;
+	}
+
+	@PostMapping( "/listParms" ) public ModelAndView showListParms(@ModelAttribute HistoryView historyView) {
+
+		LOGGER.info("showListParms()");
+		String dateBeg = historyView.getDatebeg();
+
+		List<History> histories = historyService.findByDateBeg(dateBeg);
+		LOGGER.info("histories.size: " + histories.size());
+		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
+
+		StringBuilder stringBuilder = new StringBuilder(EOL);
+		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
+		LOGGER.info(stringBuilder.toString());
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("listing");
+		modelAndView.addObject("histories", histories);
+		modelAndView.addObject("historyView", historyView);
+		return modelAndView;
+	}
+
+	//#### Inputs
+	@GetMapping( "/showInputs" ) public ModelAndView showInputs( ) {
+
+		LOGGER.info("showInputs()");
+		History history = new History();
+		return getInputsMAV(history);
+	}
+
+	@GetMapping( "/showInputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
+
+		LOGGER.info("showInputs(" + id + ")");
+		long longId;
+		try { longId = Long.parseLong(id); }
+		catch (Exception ex) {
+			LOGGER.info(ex.getMessage());
+			longId = SAMPLE_ITEM;
+		}
+		if ( longId < 1 ) { longId = 0L; }
+		//
+		History history = new History();
+		try { history = historyService.findById(longId); }
+		catch (NoSuchElementException ex) {
+			LOGGER.severe(ex.getMessage());
+		}
+		return getInputsMAV(history);
 	}
 
 	@PostMapping( "/posted" ) // ModelAttribute or RequestBody?
@@ -76,38 +123,12 @@ public class HistoryController {
 			++longId;
 			modelAndView = traverse(history, longId);
 		}
-		if ( nav != null && nav.equals("list") ) { modelAndView = showListing(); }
+		if ( nav != null && nav.equals("list") ) { modelAndView = showListView(); }
 		if ( nav != null && nav.equals("clear") ) { modelAndView = showInputs(); }
 		if ( nav != null && nav.equals("save") ) { modelAndView = saver(history); }
 		if ( nav != null && nav.equals("delete") ) { modelAndView = deleter(history); }
 		//
 		return modelAndView;
-	}
-
-	@GetMapping( "/showInputs" ) public ModelAndView showInputs( ) {
-
-		LOGGER.info("showInputs()");
-		History history = new History();
-		return getHistoryMAV(history);
-	}
-
-	@GetMapping( "/showInputs/{id}" ) public ModelAndView showInputs(@PathVariable String id) {
-
-		LOGGER.info("showInputs(" + id + ")");
-		long longId;
-		try { longId = Long.parseLong(id); }
-		catch (Exception ex) {
-			LOGGER.info(ex.getMessage());
-			longId = SAMPLE_ITEM;
-		}
-		if ( longId < 1 ) { longId = 0L; }
-		//
-		History history = new History();
-		try { history = historyService.findById(longId); }
-		catch (NoSuchElementException ex) {
-			LOGGER.severe(ex.getMessage());
-		}
-		return getHistoryMAV(history);
 	}
 
 	@PostMapping( "/traverse" ) public ModelAndView traverse(@ModelAttribute History history, Long longId) {
@@ -121,7 +142,7 @@ public class HistoryController {
 		}
 		LOGGER.info("showHistory: " + history.showHistory());
 
-		return getHistoryMAV(history);
+		return getInputsMAV(history);
 	}
 
 	@PostMapping( "/saver" ) public ModelAndView saver(@ModelAttribute History history) {
@@ -171,7 +192,7 @@ public class HistoryController {
 	}
 
 	//#### STATICS ####
-	private ModelAndView getHistoryMAV(History history) {
+	private ModelAndView getInputsMAV(History history) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("inputs");

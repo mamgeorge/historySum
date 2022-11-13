@@ -10,37 +10,49 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 	border: black solid 1px; border-radius: 4px; font-size: 14pt; }
 .tny { font-size: 8pt; text-align: center; border: 0px; }
 .trn { background: rgba(0,0,0,.0); padding: 0px; margin: 0px; }
-.btn { height: 40px; background-color: #403030; color: #ffffff; font-weight: bold; font-size: 14pt;
+.brd { border: 0px; }
+.btn { width: 70px; height: 40px; background-color: #403030; color: #ffffff;
+	font-weight: bold; font-size: 14pt; text-align: center;
 	border: 5px #a08060 outset; border-radius: 5px; }
 </style>
 <script type = "text/javascript" >
 function checkSubmit() {
 
-	alert("hi");
-	// form.querySelectorAll("input:checked")
-	// form.querySelectorAll('input[type="checkbox"]:checked, input[type="radio"]:checked');
-	var form = document.getElementById("inputHistory");
-	var btnVal = form.querySelectorAll('input[type="submit"]:not([value=""])');
-	var selVal = btnVal.value; // forEach(el=>el.click());
+	var form = document.forms["listingForm"];
+	var flen = form.elements.length;
+	var txtLine = "";
+	for ( ictr = 0; ictr < flen; ictr++) {
+		txtLine += form.elements[ ictr ].value + " | " + form.elements[ ictr ].name + " / ";
+	}
+	// alert('flen: ' + flen + ', ' + txtLine);
 }
 </script>
 </head>
 
 <body><br /><a href = "/"><h3>History Listing</h3></a><br/>
-<form th:action = "@{/posted}" th:object = "${history}" onsubmit = "return checkSubmit()" method = "post"></form>
 <br/>
+
+<form th:action = "@{/listParms}" th:object = "${historyView}" method = "post"
+	name = "listingForm" id = "listingForm" >
 <table>
 <tr style = "background-color: transparent;" >
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.datebeg}"		value = "" title = "datebeg"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.dateend}"		value = "" title = "dateend"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.eramain}"		value = "" title = "eramain"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.locales}"		value = "" title = "locales"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.personname}"	value = "" title = "personname"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.eventmain}"		value = "" title = "eventmain"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.referenced}"	value = "" title = "referenced"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" name = "${historyView.tags}"			value = "" title = "tags"		/></td>
-	<td class = "trn" rowspan = "2"><input class = "btn" type = "submit" name = "submit"
-		onclick = "javascript: checkSubmit()" value = "Go!" /></td><!-- onclick = "location.href='/listing';" -->
+	<td class = "trn brd" >
+		<input class = "btn" type = "submit" onclick = "return checkSubmit()" value = "Home" /><br />
+		<input class = "btn" type = "submit" onclick = "return checkSubmit()" value = "Clear" /><br />
+		<input class = "btn" type = "submit" onclick = "return checkSubmit()" value = "Send!" />
+	</td>
+	<td class = "trn brd" >
+
+<table>
+<tr style = "background-color: transparent;" >
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.datebeg}"		title = "datebeg"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.dateend}"		title = "dateend"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.eramain}"		title = "eramain"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.locales}"		title = "locales"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.personname}"	title = "personname"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.eventmain}"		title = "eventmain"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.referenced}"	title = "referenced"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.tags}"			title = "tags"			/></td>
 	</tr>
 <tr style = "background-color: transparent;" >
 	<td class = "trn tny">datebeg		</td>
@@ -98,6 +110,9 @@ function checkSubmit() {
 </tr>
 </table>
 </div>
+
+</td></tr></table>
+</form>
 
 <br/>
 <br/><h6><span th:text = "${#strings.randomAlphanumeric(10)}"></span> |

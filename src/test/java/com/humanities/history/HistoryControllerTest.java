@@ -2,6 +2,7 @@ package com.humanities.history;
 
 import com.humanities.history.controller.HistoryController;
 import com.humanities.history.model.History;
+import com.humanities.history.model.HistoryView;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

@@ -23,7 +23,7 @@ function checkSubmit() {
 
 	// form.querySelectorAll("input:checked")
 	// form.querySelectorAll('input[type="checkbox"]:checked, input[type="radio"]:checked');
-	var form = document.getElementById("inputHistory");
+	var form = document.getElementById("inputForm");
 	var btnVal = form.querySelectorAll('input[type="submit"]:not([value=""])');
 	var selVal = btnVal.value; // forEach(el=>el.click());
 }
@@ -33,7 +33,7 @@ function checkSubmit() {
 <body><br /><a href = "/"><h3>History Inputs</h3></a><br/>
 
 <form th:action = "@{/posted}" th:object = "${history}" method = "post"
-	onsubmit = "return checkSubmit()" name = "inputHistory" id = "inputHistory" >
+	name = "inputForm" id = "inputForm" onsubmit = "return checkSubmit()" >
 <br/>
 	<input class = "btn" type = "submit" name = "nav" value = "back"	/>
 	<input class = "btn" type = "submit" name = "nav" value = "list"	/>
