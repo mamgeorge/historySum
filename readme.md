@@ -12,7 +12,9 @@ test in http://localhost:8080
 * uses global world history principles
 
 ### todos
-* inputs security layer for addition, error handling, duplicates handling 
+* Validations: entry screening 
+* ListingController: error handling, duplicates handling
+* Security: inputs security layer for addition
 * listing selections of time, components range
 * db cap for retrieval
 * #######################

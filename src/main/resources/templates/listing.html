@@ -10,6 +10,7 @@ div.list { display: inline-block; height: 500px; overflow: auto; }
 	border: black solid 1px; border-radius: 4px; font-size: 14pt; }
 .tny { font-size: 8pt; text-align: center; border: 0px; }
 .trn { background: rgba(0,0,0,.0); padding: 0px; margin: 0px; }
+.inp { background-color: #ffffff; }
 .brd { border: 0px; }
 .btn { width: 70px; height: 40px; background-color: #403030; color: #ffffff;
 	font-weight: bold; font-size: 14pt; text-align: center;
@@ -45,14 +46,14 @@ function checkSubmit() {
 
 <table>
 <tr style = "background-color: transparent;" >
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.datebeg}"		title = "datebeg"		/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.dateend}"		title = "dateend"		/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.eramain}"		title = "eramain"		/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.locales}"		title = "locales"		/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.personname}"	title = "personname"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.eventmain}"		title = "eventmain"		/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.referenced}"	title = "referenced"	/></td>
-	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.tags}"			title = "tags"			/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.datebeg}"		title = "datebeg"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.dateend}"		title = "dateend"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.eramain}"		title = "eramain"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.locales}"		title = "locales"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.personname}"	title = "personname"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.eventmain}"		title = "eventmain"		/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.referenced}"	title = "referenced"	/></td>
+	<td class = "trn" ><input class = "trn inp" type = "text" th:field = "${historyView.history.tags}"			title = "tags"			/></td>
 	</tr>
 <tr style = "background-color: transparent;" >
 	<td class = "trn tny">datebeg		</td>

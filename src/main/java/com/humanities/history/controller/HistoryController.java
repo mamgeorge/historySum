@@ -14,21 +14,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @RestController
 public class HistoryController {
 
 	@Autowired private IHistoryService historyService;
+	@Autowired private HistoryView historyView;
 
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
 	private static final String EOL = "\n";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
-	private static final boolean AUTHORITY = false;
-
-	private HistoryView historyView = new HistoryView();
+	private static final boolean IS_ACTIVE = false;
 
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
@@ -38,14 +39,14 @@ public class HistoryController {
 
 	@GetMapping( "/listing" ) public ModelAndView showListView() {
 
-		// @ModelAttribute HistoryView historyView
 		LOGGER.info("showListView()");
 		List<History> histories = historyService.findAll();
 		LOGGER.info("histories.size: " + histories.size());
 		if ( histories.size() > MAX_DISPLAY ) { histories = histories.subList(0, MAX_DISPLAY); }
+		historyView.setHistory(histories.get(0));
 
 		StringBuilder stringBuilder = new StringBuilder(EOL);
-		histories.forEach(hst -> stringBuilder.append(hst.showHistory()).append(EOL));
+		histories.forEach(history -> stringBuilder.append(history.showHistory()).append(EOL));
 		LOGGER.info(stringBuilder.toString());
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -58,7 +59,9 @@ public class HistoryController {
 	@PostMapping( "/listParms" ) public ModelAndView showListParms(@ModelAttribute HistoryView historyView) {
 
 		LOGGER.info("showListParms()");
-		String dateBeg = historyView.getDatebeg();
+		Map<String, String> eralist = historyView.getEralist();
+		Set set = eralist.keySet();
+		String dateBeg = (String) set.stream().toArray()[0];
 
 		List<History> histories = historyService.findByDateBeg(dateBeg);
 		LOGGER.info("histories.size: " + histories.size());
@@ -71,7 +74,6 @@ public class HistoryController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("listing");
 		modelAndView.addObject("histories", histories);
-		modelAndView.addObject("historyView", historyView);
 		return modelAndView;
 	}
 
@@ -80,6 +82,7 @@ public class HistoryController {
 
 		LOGGER.info("showInputs()");
 		History history = new History();
+		historyView.setHistory(history);
 		return getInputsMAV(history);
 	}
 
@@ -96,9 +99,9 @@ public class HistoryController {
 		//
 		History history = new History();
 		try { history = historyService.findById(longId); }
-		catch (NoSuchElementException ex) {
-			LOGGER.severe(ex.getMessage());
-		}
+		catch (NoSuchElementException ex) { LOGGER.severe(ex.getMessage()); }
+
+		historyView.setHistory(history);
 		return getInputsMAV(history);
 	}
 
@@ -136,10 +139,9 @@ public class HistoryController {
 		LOGGER.info("traverse(history, longId)");
 		if ( longId == null || longId < 1 ) { LOGGER.info(""); } else {
 			try { history = historyService.findById(longId); }
-			catch (NoSuchElementException ex) {
-				LOGGER.info(ex.getMessage());
-			}
+			catch (NoSuchElementException ex) { LOGGER.info(ex.getMessage()); }
 		}
+		historyView.setHistory(history);
 		LOGGER.info("showHistory: " + history.showHistory());
 
 		return getInputsMAV(history);
@@ -153,17 +155,19 @@ public class HistoryController {
 		Long longId = history.getId();
 		if ( longId == null || longId <= 1 ) { history = new History(); } else {
 			try {
-				if ( AUTHORITY ) { history = historyService.save(history); }
+				if ( IS_ACTIVE ) { history = historyService.save(history); }
 			}
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
 			}
 		}
+		historyView.setHistory(history);
 		LOGGER.info("history: " + history.showHistory());
 		//
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("inputs");
 		modelAndView.addObject("history", history);
+		modelAndView.addObject("historyView", historyView);
 		modelAndView.addObject("historySum", history.showHistory());
 		return modelAndView;
 	}
@@ -172,7 +176,7 @@ public class HistoryController {
 		//
 		LOGGER.info("deleter(history): " + history.showHistory());
 		try {
-			if ( AUTHORITY ) { historyService.delete(history); }
+			if ( IS_ACTIVE ) { historyService.delete(history); }
 		}
 		catch (Exception ex) { LOGGER.severe(ex.getMessage()); }
 		return showInputs();
