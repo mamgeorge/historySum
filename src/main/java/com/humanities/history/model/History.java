@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.logging.Logger;
 
 @Getter @Setter @NoArgsConstructor
@@ -30,8 +30,8 @@ public class History {
 	private String referenced;  // ''
 	private String tags;        // 'h0000'
 	private String mediaicopath;// '_0000_H_Nazareth_JesusCross'
-	private Date datecre;       // creation
-	private Date datemod;       // modified
+	private Timestamp datecre;  // creation
+	private Timestamp datemod;  // modified
 	private String user;        // user
 
 	public History(String datebeg, String eventmain) {

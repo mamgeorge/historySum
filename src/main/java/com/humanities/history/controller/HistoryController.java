@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,7 @@ public class HistoryController {
 	private static final String EOL = "\n";
 	private static final int MAX_DISPLAY = 20;
 	private static final int SAMPLE_ITEM = 1;
-	private static final boolean IS_ACTIVE = false;
+	private static final boolean IS_ACTIVE = true;
 
 	@GetMapping( { "/", "/index", "/home" } ) public ModelAndView home( ) {
 		//
@@ -155,7 +157,11 @@ public class HistoryController {
 		Long longId = history.getId();
 		if ( longId == null || longId <= 1 ) { history = new History(); } else {
 			try {
-				if ( IS_ACTIVE ) { history = historyService.save(history); }
+				if ( IS_ACTIVE ) {
+					history.setDatemod(Timestamp.from(Instant.now()));
+					history.setUser(System.getenv("USERNAME"));
+					history = historyService.save(history);
+				}
 			}
 			catch (NoSuchElementException ex) {
 				LOGGER.info(ex.getMessage());
