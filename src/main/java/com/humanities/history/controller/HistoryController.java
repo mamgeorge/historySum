@@ -41,6 +41,11 @@ public class HistoryController {
 
 	@GetMapping( "/listing" ) public ModelAndView showListView() {
 
+		/* Incomplete:
+			the listing page "Home" button should go to "/home"
+			the listing page "Clear" button should clear fields only, maybe return to "/listing"
+			the listing page "Send" button should go to "/listRange"
+		*/
 		LOGGER.info("showListView()");
 		List<History> histories = historyService.findAll();
 		LOGGER.info("histories.size: " + histories.size());
@@ -58,12 +63,11 @@ public class HistoryController {
 		return modelAndView;
 	}
 
-	@PostMapping( "/listParms" ) public ModelAndView showListParms(@ModelAttribute HistoryView historyView) {
+	@PostMapping( "/listRange" ) public ModelAndView showListRange() {
 
-		LOGGER.info("showListParms()");
-		Map<String, String> eralist = historyView.getEralist();
-		Set set = eralist.keySet();
-		String dateBeg = (String) set.stream().toArray()[0];
+		LOGGER.info("showListRange()");
+		String dateBeg = historyView.getHistory().getDatebeg();
+		String dateEnd = historyView.getHistory().getDateend();
 
 		List<History> histories = historyService.findByDateBeg(dateBeg);
 		LOGGER.info("histories.size: " + histories.size());
